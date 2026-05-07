@@ -7,7 +7,6 @@ def calculate_fare(seconds_stopped, seconds_moving):
     - Moving: 0.05 €/s
     """
     fare = seconds_stopped * 0.02 + seconds_moving * 0.05
-    print(f"Este es el total: {fare}")
     return fare
 
 def taximeter():
