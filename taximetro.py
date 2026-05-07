@@ -1,21 +1,30 @@
 import time
 
+STOPPED_RATE = 0.02
+MOVING_RATE = 0.05
+
 def calculate_fare(seconds_stopped, seconds_moving):
     """
-    Calcular la tarifa total en euros.
-    - Stopped: 0.02 €/s
-    - Moving: 0.05 €/s
+    Calcula la tarifa total en euros.
+    - Parado: 0.02 euros/segundo
+    - En movimiento: 0.05 euros/segundo
     """
-    fare = seconds_stopped * 0.02 + seconds_moving * 0.05
-    print(f"Este es el total: {fare}")
+    fare = seconds_stopped * STOPPED_RATE + seconds_moving * MOVING_RATE
     return fare
 
 def taximeter():
     """
-    Función para manejar y mostrar las opciones del taxímetro.
+    Funcion para manejar y mostrar las opciones del taximetro.
     """
-    print("Welcome to the F5 Taximeter!")
-    print("Available commands: 'start', 'stop', 'move', 'finish', 'exit'\n")
+    print("Bienvenido al Taximetro Digital F5")
+    print("Este programa calcula el importe de un trayecto segun el tiempo parado y en movimiento.")
+    print("Tarifas: parado = 0.02 euros/segundo | movimiento = 0.05 euros/segundo")
+    print("Comandos disponibles:")
+    print("  start  - iniciar un trayecto")
+    print("  stop   - indicar que el taxi esta parado")
+    print("  move   - indicar que el taxi esta en movimiento")
+    print("  finish - finalizar el trayecto y mostrar el total")
+    print("  exit   - salir del programa\n")
 
     trip_active = False
     start_time = 0
@@ -29,7 +38,7 @@ def taximeter():
 
         if command == "start":
             if trip_active:
-                print("Error: A trip is already in progress.")
+                print("Error: ya hay un trayecto en curso.")
                 continue
             trip_active = True
             start_time = time.time()
@@ -37,11 +46,11 @@ def taximeter():
             moving_time = 0
             state = 'stopped'  # Iniciamos en estado 'stopped'
             state_start_time = time.time()
-            print("Trip started. Initial state: 'stopped'.")
+            print("Trayecto iniciado. Estado inicial: parado.")
 
         elif command in ("stop", "move"):
             if not trip_active:
-                print("Error: No active trip. Please start first.")
+                print("Error: no hay ningun trayecto activo. Usa 'start' primero.")
                 continue
             # Calcula el tiempo del estado anterior
             duration = time.time() - state_start_time
@@ -53,13 +62,14 @@ def taximeter():
             # Cambia el estado
             state = 'stopped' if command == "stop" else 'moving'
             state_start_time = time.time()
-            print(f"State changed to '{state}'.")
+            state_label = "parado" if state == 'stopped' else "en movimiento"
+            print(f"Estado actualizado: {state_label}.")
 
         elif command == "finish":
             if not trip_active:
-                print("Error: No active trip to finish.")
+                print("Error: no hay ningun trayecto activo para finalizar.")
                 continue
-            # Agrega tiempo del último estado
+            # Agrega tiempo del ultimo estado
             duration = time.time() - state_start_time
             if state == 'stopped':
                 stopped_time += duration
@@ -68,22 +78,22 @@ def taximeter():
 
             # Calcula la tarifa total y muestra el resumen del viaje
             total_fare = calculate_fare(stopped_time, moving_time)
-            print(f"\n--- Trip Summary ---")
-            print(f"Stopped time: {stopped_time:.1f} seconds")
-            print(f"Moving time: {moving_time:.1f} seconds")
-            print(f"Total fare: €{total_fare:.2f}")
-            print("---------------------\n")
+            print(f"\n--- Resumen del trayecto ---")
+            print(f"Tiempo parado: {stopped_time:.1f} segundos")
+            print(f"Tiempo en movimiento: {moving_time:.1f} segundos")
+            print(f"Importe total: {total_fare:.2f} euros")
+            print("----------------------------\n")
 
-            # Reset las variables para el próximo viaje
+            # Reset las variables para el proximo viaje
             trip_active = False
             state = None
 
         elif command == "exit":
-            print("Exiting the program. Goodbye!")
+            print("Saliendo del programa. Hasta pronto.")
             break
 
         else:
-            print("Unknown command. Use: start, stop, move, finish, or exit.")
+            print("Comando no reconocido. Usa: start, stop, move, finish o exit.")
 
 if __name__ == "__main__":
     taximeter()
