@@ -14,15 +14,15 @@ def calculate_fare(seconds_stopped, seconds_moving):
 
 def taximeter():
     """
-    Función para manejar y mostrar las opciones del taxímetro.
+    Funcion para manejar y mostrar las opciones del taximetro.
     """
-    print("Bienvenido al Taxímetro Digital F5")
-    print("Este programa calcula el importe de un trayecto según el tiempo parado y en movimiento.")
+    print("Bienvenido al Taximetro Digital F5")
+    print("Este programa calcula el importe de un trayecto segun el tiempo parado y en movimiento.")
     print("Tarifas: parado = 0.02 euros/segundo | movimiento = 0.05 euros/segundo")
     print("Comandos disponibles:")
     print("  start  - iniciar un trayecto")
-    print("  stop   - indicar que el taxi está parado")
-    print("  move   - indicar que el taxi está en movimiento")
+    print("  stop   - indicar que el taxi esta parado")
+    print("  move   - indicar que el taxi esta en movimiento")
     print("  finish - finalizar el trayecto y mostrar el total")
     print("  exit   - salir del programa\n")
 
@@ -50,7 +50,7 @@ def taximeter():
 
         elif command in ("stop", "move"):
             if not trip_active:
-                print("Error: no hay ningún trayecto activo. Usa 'start' primero.")
+                print("Error: no hay ningun trayecto activo. Usa 'start' primero.")
                 continue
             # Calcula el tiempo del estado anterior
             duration = time.time() - state_start_time
@@ -67,9 +67,9 @@ def taximeter():
 
         elif command == "finish":
             if not trip_active:
-                print("Error: no hay ningún trayecto activo para finalizar.")
+                print("Error: no hay ningun trayecto activo para finalizar.")
                 continue
-            # Agrega tiempo del último estado
+            # Agrega tiempo del ultimo estado
             duration = time.time() - state_start_time
             if state == 'stopped':
                 stopped_time += duration
@@ -84,7 +84,7 @@ def taximeter():
             print(f"Importe total: {total_fare:.2f} euros")
             print("----------------------------\n")
 
-            # Reset las variables para el próximo viaje
+            # Reset las variables para el proximo viaje
             trip_active = False
             state = None
 

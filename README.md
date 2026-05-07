@@ -61,10 +61,11 @@ El registro diario de decisiones, avances y problemas se encuentra en:
 
 ## Proximos pasos
 
-- Completar el nivel esencial del CLI.
-- Documentar el uso del proyecto.
+- Revisar y cerrar el nivel esencial del CLI.
+- Crear un Pull Request de `feature/nivel-esencial` hacia `main`.
 - Implementar logs.
 - Agregar tests unitarios.
 - Guardar historico de trayectos.
+- Permitir configuracion de tarifas.
 - Refactorizar el codigo con OOP.
 - Preparar base de datos, Docker y version web para el nivel experto.
