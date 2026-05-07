@@ -1,20 +1,24 @@
 import time
 
+STOPPED_RATE = 0.02
+MOVING_RATE = 0.05
+
 def calculate_fare(seconds_stopped, seconds_moving):
     """
     Calcular la tarifa total en euros.
     - Stopped: 0.02 €/s
     - Moving: 0.05 €/s
     """
-    fare = seconds_stopped * 0.02 + seconds_moving * 0.05
+    fare = seconds_stopped * STOPPED_RATE + seconds_moving * MOVING_RATE
     return fare
 
 def taximeter():
     """
     Función para manejar y mostrar las opciones del taxímetro.
     """
-    print("Welcome to the F5 Taximeter!")
-    print("Available commands: 'start', 'stop', 'move', 'finish', 'exit'\n")
+    print("Bienvenido al Taxímetro Digital F5")
+    print("Comandos disponibles: 'start', 'stop', 'move', 'finish', 'exit'\n")
+    print("Usa 'start' para iniciar un trayecto y 'finish' para finalizarlo.\n")
 
     trip_active = False
     start_time = 0
