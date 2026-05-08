@@ -25,3 +25,9 @@ def test_calculate_fare_without_time():
     result = calculate_fare(0, 0)
 
     assert result == 0
+
+def test_calculate_fare_with_custom_rates():
+    # Verifica que se pueden usar tarifas configurables.
+    result = calculate_fare(10, 5, stopped_rate=0.10, moving_rate=0.20)
+
+    assert result == 2.0

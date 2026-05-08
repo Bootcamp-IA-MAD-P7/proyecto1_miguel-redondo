@@ -1,3 +1,4 @@
+import json
 import logging
 import time
 from datetime import datetime
@@ -5,21 +6,37 @@ from datetime import datetime
 STOPPED_RATE = 0.02
 MOVING_RATE = 0.05
 HISTORY_FILE = "trip_history.txt"
+CONFIG_FILE = "config.json"
 
-# Configuración del sistema de logs
+def load_rates():
+    """
+    Carga las tarifas desde un archivo de configuracion.
+    Si el archivo no existe o falla, usa las tarifas por defecto.
+    """
+    try:
+        with open(CONFIG_FILE, "r", encoding="utf-8") as file:
+            config = json.load(file)
+
+        stopped_rate = config.get("stopped_rate", STOPPED_RATE)
+        moving_rate = config.get("moving_rate", MOVING_RATE)
+        return stopped_rate, moving_rate
+
+    except FileNotFoundError:
+        logging.warning("Archivo de configuracion no encontrado. Se usan las tarifas por defecto.")
+        return STOPPED_RATE, MOVING_RATE
+
+# Configuracion del sistema de logs
 logging.basicConfig(
     filename="taximetro.log",
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-def calculate_fare(seconds_stopped, seconds_moving):
+def calculate_fare(seconds_stopped, seconds_moving, stopped_rate=STOPPED_RATE, moving_rate=MOVING_RATE):
     """
     Calcula la tarifa total en euros.
-    - Parado: 0.02 euros/segundo
-    - En movimiento: 0.05 euros/segundo
     """
-    fare = seconds_stopped * STOPPED_RATE + seconds_moving * MOVING_RATE
+    fare = seconds_stopped * stopped_rate + seconds_moving * moving_rate
     return fare
 
 def save_trip_history(stopped_time, moving_time, total_fare):
@@ -42,9 +59,11 @@ def taximeter():
     Funcion para manejar y mostrar las opciones del taximetro.
     """
     logging.info("Programa iniciado")
+    stopped_rate, moving_rate = load_rates()
+    logging.info(f"Tarifas cargadas: parado={stopped_rate}, movimiento={moving_rate}")
     print("Bienvenido al Taximetro Digital F5")
     print("Este programa calcula el importe de un trayecto segun el tiempo parado y en movimiento.")
-    print("Tarifas: parado = 0.02 euros/segundo | movimiento = 0.05 euros/segundo")
+    print(f"Tarifas: parado = {stopped_rate} euros/segundo | movimiento = {moving_rate} euros/segundo")
     print("Comandos disponibles:")
     print("  start  - iniciar un trayecto")
     print("  stop   - indicar que el taxi esta parado")
@@ -108,7 +127,7 @@ def taximeter():
                 moving_time += duration
 
             # Calcula la tarifa total y muestra el resumen del viaje
-            total_fare = calculate_fare(stopped_time, moving_time)
+            total_fare = calculate_fare(stopped_time, moving_time, stopped_rate, moving_rate)
             logging.info(
                 f"Trayecto finalizado. Tiempo parado: {stopped_time:.1f}s, "
                 f"tiempo en movimiento: {moving_time:.1f}s, total: {total_fare:.2f} euros"
