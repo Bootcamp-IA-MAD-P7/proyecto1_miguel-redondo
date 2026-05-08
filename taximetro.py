@@ -1,8 +1,10 @@
 import logging
 import time
+from datetime import datetime
 
 STOPPED_RATE = 0.02
 MOVING_RATE = 0.05
+HISTORY_FILE = "trip_history.txt"
 
 # Configuración del sistema de logs
 logging.basicConfig(
@@ -19,6 +21,21 @@ def calculate_fare(seconds_stopped, seconds_moving):
     """
     fare = seconds_stopped * STOPPED_RATE + seconds_moving * MOVING_RATE
     return fare
+
+def save_trip_history(stopped_time, moving_time, total_fare):
+    """
+    Guarda un trayecto finalizado en un archivo de texto.
+    """
+    finished_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    line = (
+        f"{finished_at} | "
+        f"parado: {stopped_time:.1f}s | "
+        f"movimiento: {moving_time:.1f}s | "
+        f"total: {total_fare:.2f} euros\n"
+    )
+
+    with open(HISTORY_FILE, "a", encoding="utf-8") as file:
+        file.write(line)
 
 def taximeter():
     """
@@ -96,6 +113,7 @@ def taximeter():
                 f"Trayecto finalizado. Tiempo parado: {stopped_time:.1f}s, "
                 f"tiempo en movimiento: {moving_time:.1f}s, total: {total_fare:.2f} euros"
             )
+            save_trip_history(stopped_time, moving_time, total_fare)
             print(f"\n--- Resumen del trayecto ---")
             print(f"Tiempo parado: {stopped_time:.1f} segundos")
             print(f"Tiempo en movimiento: {moving_time:.1f} segundos")
