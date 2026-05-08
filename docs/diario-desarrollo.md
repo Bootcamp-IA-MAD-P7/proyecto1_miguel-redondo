@@ -65,3 +65,79 @@ python -c "from taximetro import calculate_fare; print(calculate_fare(10, 5))"
 - Completar el nivel esencial del CLI.
 - Revisar y ampliar el README.
 - Avanzar hacia el nivel medio: logs, tests, historico en archivo y configuracion de tarifas.
+
+## Dia 2 - 8 de mayo de 2026
+
+### Objetivos del dia
+
+- Continuar desde `main` limpio y sincronizado.
+- Completar las tareas del nivel medio.
+- Mantener el flujo profesional con ramas, commits, Pull Requests y Jira.
+- Seguir entendiendo cada cambio antes de implementarlo.
+
+### Trabajo realizado
+
+- Se implemento el sistema de logs en la rama `feature/logs`.
+- Se registraron eventos principales con `INFO`.
+- Se registraron usos incorrectos con `WARNING`.
+- Se anadio `*.log` al `.gitignore`.
+- Se creo Pull Request y se fusiono en `main`.
+- Se anadieron tests unitarios en la rama `feature/tests-unitarios`.
+- Se instalo `pytest` dentro del entorno virtual.
+- Se creo `requirements.txt`.
+- Se creo la carpeta `tests/` y el archivo `tests/test_taximetro.py`.
+- Se validaron casos de calculo de tarifa con tiempo parado, tiempo en movimiento, ambos tiempos y trayecto sin tiempo.
+- Se creo Pull Request y se fusiono en `main`.
+- Se implemento el historico de trayectos en la rama `feature/historico-trayectos`.
+- Se creo la funcion `save_trip_history`.
+- Se guardan trayectos finalizados en `trip_history.txt`.
+- Se anadio `trip_history.txt` al `.gitignore`.
+- Se creo Pull Request y se fusiono en `main`.
+- Se implemento la configuracion de tarifas en la rama `feature/configuracion-tarifas`.
+- Se creo `config.json`.
+- Se creo la funcion `load_rates`.
+- `calculate_fare` ahora acepta tarifas configurables.
+- Se anadio un test para tarifas personalizadas.
+- Se creo Pull Request y se fusiono en `main`.
+
+### Validaciones realizadas
+
+- `python -m py_compile taximetro.py`
+- `python taximetro.py`
+- `python -m pytest`
+- Revision manual de `taximetro.log`.
+- Revision manual de `trip_history.txt`.
+- Prueba manual modificando temporalmente `config.json`.
+
+### Decisiones tomadas
+
+- Mantener `main` como rama estable.
+- Crear una rama por cada tarea importante.
+- Fusionar mediante Pull Request despues de probar.
+- No subir archivos generados localmente como logs o historicos.
+- Usar `config.json` para que las tarifas puedan cambiar sin modificar codigo.
+- Usar `pytest` como herramienta de testing.
+- Documentar al final del dia para no perder ritmo durante el desarrollo.
+
+### Problemas encontrados
+
+- Al ejecutar `py_compile`, un error de escritura en el comando impidio encontrar el modulo.
+- Se corrigio usando `python -m py_compile taximetro.py`.
+- En la configuracion de tarifas, `load_rates` devolvia `None` porque faltaba `return stopped_rate, moving_rate`.
+- Se corrigio la funcion y se verifico el arranque del programa.
+- Se detecto que el `print` de tarifas necesitaba ser f-string para mostrar los valores reales.
+- Se corrigieron pequenos detalles de texto antes de validar.
+
+### Estado al final del dia
+
+- Nivel esencial completado.
+- Nivel medio completado.
+- 7 tareas finalizadas en Jira.
+- `main` sincronizada con GitHub.
+- Tests pasando: 5 tests.
+- Proyecto listo para empezar el nivel avanzado.
+
+### Siguiente paso
+
+- Iniciar el nivel avanzado con la refactorizacion a programacion orientada a objetos.
+
