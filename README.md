@@ -1,42 +1,68 @@
 # Proyecto 1 - Taximetro Digital
 
-Proyecto desarrollado en Python para simular un taximetro digital que calcula tarifas segun el tiempo que el taxi permanece parado y el tiempo que esta en movimiento.
+Aplicacion desarrollada en Python para simular un taximetro digital. El sistema calcula el importe de un trayecto a partir del tiempo que el taxi permanece parado y del tiempo que esta en movimiento.
 
-## Estado del proyecto
+El proyecto forma parte del bootcamp de Factoria F5 y se esta desarrollando de forma incremental, aplicando control de versiones, ramas de trabajo, Pull Requests, documentacion tecnica, tests y gestion de tareas con Jira.
 
-El proyecto se encuentra en desarrollo. Actualmente estan completados el nivel esencial y el nivel medio del briefing. Tambien se ha iniciado el nivel avanzado con la refactorizacion a programacion orientada a objetos.
+## Estado Actual
 
-El programa ya permite trabajar desde una interfaz CLI, registrar eventos mediante logs, ejecutar tests unitarios, guardar un historico de trayectos, configurar tarifas desde un archivo externo y gestionar el estado del taximetro mediante una clase `Taximeter`.
+El proyecto tiene completados el nivel esencial y el nivel medio del briefing. Tambien se ha iniciado el nivel avanzado con una refactorizacion a programacion orientada a objetos.
 
-## Funcionalidades implementadas
+Estado funcional actual:
 
-### Nivel esencial
+- CLI operativo.
+- Calculo de tarifas por tiempo parado y tiempo en movimiento.
+- Logs tecnicos.
+- Tests unitarios.
+- Historico de trayectos en archivo de texto.
+- Configuracion externa de tarifas.
+- Clase `Taximeter` para gestionar el estado del trayecto.
 
-- Aplicacion CLI en Python.
-- Bienvenida y explicacion inicial del funcionamiento.
-- Inicio de trayecto con `start`.
-- Cambio a estado parado con `stop`.
-- Cambio a estado en movimiento con `move`.
-- Finalizacion de trayecto con `finish`.
-- Calculo del importe total en euros.
-- Posibilidad de iniciar un nuevo trayecto sin cerrar el programa.
+## Funcionalidades
 
-### Nivel medio
+### Nivel Esencial
+
+- Interfaz de linea de comandos.
+- Mensaje inicial de bienvenida y explicacion de uso.
+- Inicio de trayecto.
+- Cambio de estado entre parado y movimiento.
+- Finalizacion de trayecto.
+- Calculo del importe total.
+- Posibilidad de iniciar nuevos trayectos sin cerrar el programa.
+
+### Nivel Medio
 
 - Sistema de logs con `logging`.
 - Tests unitarios con `pytest`.
-- Historico de trayectos en archivo de texto plano.
+- Registro historico de trayectos en archivo de texto plano.
 - Configuracion de tarifas mediante `config.json`.
 
-### Nivel avanzado
+### Nivel Avanzado En Curso
 
 - Refactorizacion inicial con programacion orientada a objetos.
-- Clase `Taximeter` para gestionar el estado del trayecto.
-- Metodos `start_trip`, `change_state` y `finish_trip`.
+- Clase `Taximeter` para centralizar el estado del trayecto.
+- Metodos principales:
+  - `start_trip`
+  - `change_state`
+  - `finish_trip`
 
-## Tarifas actuales
+## Estructura Principal
 
-Las tarifas se configuran en el archivo `config.json`:
+```text
+.
+|-- config.json
+|-- README.md
+|-- requirements.txt
+|-- taximetro.py
+|-- docs/
+|   `-- diario-desarrollo.md
+`-- tests/
+    `-- test_taximetro.py
+```
+
+## Tarifas
+
+Las tarifas se definen en `config.json`:
 
 ```json
 {
@@ -45,8 +71,10 @@ Las tarifas se configuran en el archivo `config.json`:
 }
 ```
 
-- Taxi parado: 0.02 euros/segundo
-- Taxi en movimiento: 0.05 euros/segundo
+Tarifas actuales:
+
+- Taxi parado: 0.02 euros/segundo.
+- Taxi en movimiento: 0.05 euros/segundo.
 
 ## Requisitos
 
@@ -78,17 +106,21 @@ python -m pip install -r requirements.txt
 
 ## Ejecucion
 
+Ejecutar la aplicacion CLI:
+
 ```bash
 python taximetro.py
 ```
 
-## Comandos del CLI
+Comandos disponibles:
 
-- `start`: iniciar un trayecto.
-- `stop`: indicar que el taxi esta parado.
-- `move`: indicar que el taxi esta en movimiento.
-- `finish`: finalizar el trayecto y mostrar el importe total.
-- `exit`: salir del programa.
+| Comando | Descripcion |
+| --- | --- |
+| `start` | Inicia un trayecto. |
+| `stop` | Indica que el taxi esta parado. |
+| `move` | Indica que el taxi esta en movimiento. |
+| `finish` | Finaliza el trayecto y muestra el importe total. |
+| `exit` | Cierra el programa. |
 
 ## Tests
 
@@ -98,32 +130,76 @@ Ejecutar la suite de tests:
 python -m pytest
 ```
 
-Actualmente se validan los calculos de tarifa, las tarifas configurables y el comportamiento principal de la clase `Taximeter`.
+Actualmente se validan:
 
-## Archivos generados localmente
+- Calculo de tarifa con tarifas por defecto.
+- Calculo de tarifa con tarifas configurables.
+- Estado inicial de la clase `Taximeter`.
+- Inicio de trayecto.
+- Prevencion de trayectos duplicados.
+- Finalizacion sin trayecto activo.
+- Resumen devuelto al finalizar un trayecto.
 
-Durante la ejecucion se pueden crear archivos locales que no se suben a GitHub:
+Resultado actual:
 
-- `taximetro.log`: trazabilidad tecnica del programa.
-- `trip_history.txt`: historico de trayectos finalizados.
+```text
+10 tests pasados
+```
 
-Estos archivos estan ignorados en `.gitignore`.
+## Archivos Generados Localmente
 
-## Gestion del proyecto
+Durante la ejecucion se pueden generar archivos locales que no se versionan en Git:
 
-El proyecto se organiza mediante un tablero Kanban en Jira:
+| Archivo | Uso |
+| --- | --- |
+| `taximetro.log` | Trazabilidad tecnica de la aplicacion. |
+| `trip_history.txt` | Historico funcional de trayectos finalizados. |
+
+Ambos archivos estan ignorados en `.gitignore`.
+
+## Flujo De Trabajo
+
+El proyecto se desarrolla con un flujo basado en ramas:
+
+1. Partir de `main` limpio y actualizado.
+2. Crear una rama para cada funcionalidad.
+3. Implementar cambios pequenos y verificables.
+4. Ejecutar pruebas.
+5. Crear commits descriptivos.
+6. Subir la rama a GitHub.
+7. Abrir Pull Request.
+8. Fusionar en `main`.
+9. Actualizar `main` local.
+
+Ejemplos de ramas utilizadas:
+
+- `feature/nivel-esencial`
+- `feature/logs`
+- `feature/tests-unitarios`
+- `feature/historico-trayectos`
+- `feature/configuracion-tarifas`
+- `feature/oop-taximeter`
+
+## Gestion Del Proyecto
+
+El seguimiento del trabajo se realiza mediante un tablero Kanban en Jira:
 
 [Ver tablero Jira](https://miguel-redondo.atlassian.net/jira/core/projects/TAXI/board?filter=&groupBy=status)
 
-Estado actual del tablero: 8 tareas finalizadas.
+Estado actual:
 
-## Diario de desarrollo
+- 8 tareas finalizadas.
+- Nivel esencial completado.
+- Nivel medio completado.
+- Nivel avanzado iniciado.
 
-El registro diario de decisiones, avances y problemas se encuentra en:
+## Documentacion Del Proceso
+
+El registro de decisiones, avances, problemas y validaciones se mantiene en:
 
 [docs/diario-desarrollo.md](docs/diario-desarrollo.md)
 
-## Proximos pasos
+## Proximos Pasos
 
 - Implementar autenticacion basica.
 - Preparar una interfaz grafica.
