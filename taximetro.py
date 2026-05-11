@@ -25,6 +25,43 @@ def load_rates():
         logging.warning("Archivo de configuracion no encontrado. Se usan las tarifas por defecto.")
         return STOPPED_RATE, MOVING_RATE
 
+def load_password():
+    """
+    Carga la contrasena desde el archivo de configuracion.
+    """
+    try:
+        with open(CONFIG_FILE, "r", encoding="utf-8") as file:
+            config = json.load(file)
+
+        return config.get("password", "admin123")
+
+    except FileNotFoundError:
+        logging.warning("Archivo de configuracion no encontrado. Se usa contrasena por defecto.")
+        return "admin123"
+
+def authenticate_user(max_attempts=3):
+    """
+    Solicita la contrasena antes de permitir el acceso al programa.
+    """
+    expected_password = load_password()
+
+    for attempt in range(max_attempts):
+        password = input("Introduce la contrasena: ").strip()
+
+        if password == expected_password:
+            logging.info("Autenticacion correcta")
+            print("Acceso concedido.\n")
+            return True
+
+        logging.warning("Intento de autenticacion fallido")
+        remaining_attempts = max_attempts - attempt - 1
+
+        if remaining_attempts > 0:
+            print(f"Contrasena incorrecta. Intentos restantes: {remaining_attempts}")
+
+    print("Acceso denegado.")
+    return False
+
 # Configuracion del sistema de logs
 logging.basicConfig(
     filename="taximetro.log",
@@ -136,6 +173,11 @@ def taximeter():
     Funcion para manejar y mostrar las opciones del taximetro.
     """
     logging.info("Programa iniciado")
+
+    if not authenticate_user():
+        logging.warning("Programa finalizado por fallo de autenticacion")
+        return
+
     stopped_rate, moving_rate = load_rates()
     logging.info(f"Tarifas cargadas: parado={stopped_rate}, movimiento={moving_rate}")
     taximeter_app = Taximeter(stopped_rate, moving_rate)
