@@ -54,6 +54,83 @@ def save_trip_history(stopped_time, moving_time, total_fare):
     with open(HISTORY_FILE, "a", encoding="utf-8") as file:
         file.write(line)
 
+class Taximeter:
+    """
+    Representa el estado y las operaciones principales del taximetro.
+    """
+
+    def __init__(self, stopped_rate=STOPPED_RATE, moving_rate=MOVING_RATE):
+        self.stopped_rate = stopped_rate
+        self.moving_rate = moving_rate
+        self.trip_active = False
+        self.stopped_time = 0
+        self.moving_time = 0
+        self.state = None
+        self.state_start_time = 0
+
+    def start_trip(self):
+        """
+        Inicia un nuevo trayecto.
+        """
+        if self.trip_active:
+            return False
+        self.trip_active = True
+        self.stopped_time = 0
+        self.moving_time = 0
+        self.state = "stopped"
+        self.state_start_time = time.time()
+        return True
+
+    def change_state(self, new_state):
+        """
+        Cambia el estado del taxi y acumula el tiempo del estado anterior.
+        """
+        if not self.trip_active:
+            return False
+
+        duration = time.time() - self.state_start_time
+
+        if self.state == "stopped":
+            self.stopped_time += duration
+        else:
+            self.moving_time += duration
+
+        self.state = new_state
+        self.state_start_time = time.time()
+        return True
+
+    def finish_trip(self):
+        """
+        Finaliza el trayecto activo y devuelve un resumen.
+        """
+        if not self.trip_active:
+            return None
+        duration = time.time() - self.state_start_time
+
+        if self.state == "stopped":
+            self.stopped_time += duration
+        else:
+            self.moving_time += duration
+
+        total_fare = calculate_fare(
+            self.stopped_time,
+            self.moving_time,
+            self.stopped_rate,
+            self.moving_rate
+        )
+
+        summary = {
+            "stopped_time": self.stopped_time,
+            "moving_time": self.moving_time,
+            "total_fare": total_fare
+        }
+
+        self.trip_active = False
+        self.state = None
+        self.state_start_time = 0
+
+        return summary
+
 def taximeter():
     """
     Funcion para manejar y mostrar las opciones del taximetro.
@@ -61,6 +138,7 @@ def taximeter():
     logging.info("Programa iniciado")
     stopped_rate, moving_rate = load_rates()
     logging.info(f"Tarifas cargadas: parado={stopped_rate}, movimiento={moving_rate}")
+    taximeter_app = Taximeter(stopped_rate, moving_rate)
     print("Bienvenido al Taximetro Digital F5")
     print("Este programa calcula el importe de un trayecto segun el tiempo parado y en movimiento.")
     print(f"Tarifas: parado = {stopped_rate} euros/segundo | movimiento = {moving_rate} euros/segundo")
@@ -71,77 +149,54 @@ def taximeter():
     print("  finish - finalizar el trayecto y mostrar el total")
     print("  exit   - salir del programa\n")
 
-    trip_active = False
-    start_time = 0
-    stopped_time = 0
-    moving_time = 0
-    state = None  # 'stopped' o 'moving'
-    state_start_time = 0
-
     while True:
         command = input("> ").strip().lower()
 
         if command == "start":
-            if trip_active:
+            if not taximeter_app.start_trip():
                 logging.warning("Intento de iniciar un trayecto cuando ya habia uno activo")
                 print("Error: ya hay un trayecto en curso.")
                 continue
-            trip_active = True
-            start_time = time.time()
-            stopped_time = 0
-            moving_time = 0
-            state = 'stopped'  # Iniciamos en estado 'stopped'
-            state_start_time = time.time()
+
             logging.info("Trayecto iniciado")
             print("Trayecto iniciado. Estado inicial: parado.")
 
         elif command in ("stop", "move"):
-            if not trip_active:
+            new_state = "stopped" if command == "stop" else "moving"
+
+            if not taximeter_app.change_state(new_state):
                 logging.warning(f"Intento de cambiar a '{command}' sin trayecto activo")
                 print("Error: no hay ningun trayecto activo. Usa 'start' primero.")
                 continue
-            # Calcula el tiempo del estado anterior
-            duration = time.time() - state_start_time
-            if state == 'stopped':
-                stopped_time += duration
-            else:
-                moving_time += duration
 
-            # Cambia el estado
-            state = 'stopped' if command == "stop" else 'moving'
-            state_start_time = time.time()
-            state_label = "parado" if state == 'stopped' else "en movimiento"
+            state_label = "parado" if new_state == "stopped" else "en movimiento"
             logging.info(f"Estado actualizado: {state_label}")
             print(f"Estado actualizado: {state_label}.")
 
         elif command == "finish":
-            if not trip_active:
+            summary = taximeter_app.finish_trip()
+
+            if summary is None:
                 logging.warning("Intento de finalizar sin trayecto activo")
                 print("Error: no hay ningun trayecto activo para finalizar.")
                 continue
-            # Agrega tiempo del ultimo estado
-            duration = time.time() - state_start_time
-            if state == 'stopped':
-                stopped_time += duration
-            else:
-                moving_time += duration
 
-            # Calcula la tarifa total y muestra el resumen del viaje
-            total_fare = calculate_fare(stopped_time, moving_time, stopped_rate, moving_rate)
+            stopped_time = summary["stopped_time"]
+            moving_time = summary["moving_time"]
+            total_fare = summary["total_fare"]
+
             logging.info(
                 f"Trayecto finalizado. Tiempo parado: {stopped_time:.1f}s, "
                 f"tiempo en movimiento: {moving_time:.1f}s, total: {total_fare:.2f} euros"
             )
+
             save_trip_history(stopped_time, moving_time, total_fare)
+
             print(f"\n--- Resumen del trayecto ---")
             print(f"Tiempo parado: {stopped_time:.1f} segundos")
             print(f"Tiempo en movimiento: {moving_time:.1f} segundos")
             print(f"Importe total: {total_fare:.2f} euros")
             print("----------------------------\n")
-
-            # Reset las variables para el proximo viaje
-            trip_active = False
-            state = None
 
         elif command == "exit":
             logging.info("Programa finalizado")
