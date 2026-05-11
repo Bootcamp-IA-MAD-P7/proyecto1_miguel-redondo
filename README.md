@@ -19,6 +19,47 @@ Estado funcional actual:
 - Configuracion externa de tarifas y contrasena.
 - Clase `Taximeter` para gestionar el estado del trayecto.
 
+## Seguimiento Del Briefing
+
+Esta tabla resume los requisitos del briefing y el estado de avance del proyecto.
+
+### ![Nivel Esencial](https://img.shields.io/badge/Nivel%20Esencial-Completado-2ea44f)
+
+| Check | Requisito | Estado |
+| --- | --- | --- |
+| ✅ | Desarrollar un programa CLI en Python. | Completado |
+| ✅ | Mostrar bienvenida y explicacion de funcionamiento al iniciar. | Completado |
+| ✅ | Iniciar un trayecto. | Completado |
+| ✅ | Calcular tarifa con el taxi parado. | Completado |
+| ✅ | Calcular tarifa con el taxi en movimiento. | Completado |
+| ✅ | Finalizar un trayecto y mostrar el total en euros. | Completado |
+| ✅ | Permitir iniciar un nuevo trayecto sin cerrar el programa. | Completado |
+
+### ![Nivel Medio](https://img.shields.io/badge/Nivel%20Medio-Completado-d29922)
+
+| Check | Requisito | Estado |
+| --- | --- | --- |
+| ✅ | Implementar un sistema de logs para trazabilidad. | Completado |
+| ✅ | Agregar tests unitarios. | Completado |
+| ✅ | Crear un registro historico de trayectos en texto plano. | Completado |
+| ✅ | Permitir la configuracion de precios. | Completado |
+
+### ![Nivel Avanzado](https://img.shields.io/badge/Nivel%20Avanzado-En%20curso-0969da)
+
+| Check | Requisito | Estado |
+| --- | --- | --- |
+| ✅ | Refactorizar el codigo con programacion orientada a objetos. | Completado |
+| ✅ | Implementar autenticacion con contrasena. | Completado |
+| ⏳ | Desarrollar una interfaz grafica de usuario. | En desarrollo |
+
+### ![Nivel Experto](https://img.shields.io/badge/Nivel%20Experto-Pendiente-8250df)
+
+| Check | Requisito | Estado |
+| --- | --- | --- |
+| ⬜ | Integrar una base de datos para almacenar trayectos. | Pendiente |
+| ⬜ | Dockerizar la aplicacion. | Pendiente |
+| ⬜ | Desarrollar una version web accesible desde navegador. | Pendiente |
+
 ## Funcionalidades
 
 ### Nivel Esencial
