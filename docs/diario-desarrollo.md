@@ -141,3 +141,71 @@ python -c "from taximetro import calculate_fare; print(calculate_fare(10, 5))"
 
 - Iniciar el nivel avanzado con la refactorizacion a programacion orientada a objetos.
 
+## Dia 3 - 11 de mayo de 2026
+
+### Objetivos del dia
+
+- Empezar el nivel avanzado del briefing.
+- Refactorizar el codigo usando programacion orientada a objetos.
+- Mantener el flujo de trabajo con rama, tests, commit, Pull Request y merge.
+- Revisar el codigo con mas cuidado antes de avanzar a la siguiente funcionalidad.
+
+### Trabajo realizado
+
+- Se partio desde `main` limpio y sincronizado.
+- Se creo la rama `feature/oop-taximeter`.
+- Se anadio la clase `Taximeter`.
+- Se movio el estado del trayecto a atributos de instancia:
+  - `trip_active`
+  - `stopped_time`
+  - `moving_time`
+  - `state`
+  - `state_start_time`
+- Se crearon los metodos `start_trip`, `change_state` y `finish_trip`.
+- Se actualizo el CLI para usar la clase `Taximeter`.
+- Se eliminaron variables sueltas de la funcion `taximeter`.
+- Se anadieron tests unitarios para comprobar el comportamiento principal de la clase.
+- Se creo Pull Request y se fusiono en `main`.
+
+### Validaciones realizadas
+
+- `python -m py_compile taximetro.py`
+- `python -m pytest`
+- Resultado: 10 tests pasados.
+- `git diff --check`
+- Prueba manual del CLI con:
+  - `finish` sin trayecto activo
+  - `start`
+  - segundo `start`
+  - `move`
+  - `stop`
+  - `finish`
+  - `exit`
+
+### Decisiones tomadas
+
+- Mantener la logica principal del taximetro dentro de una clase.
+- Dejar el CLI como capa de interaccion con el usuario.
+- No empezar la interfaz grafica hasta tener la logica mejor organizada.
+- Seguir usando tests despues de cada cambio importante.
+
+### Problemas encontrados
+
+- Durante el refactor aparecieron errores de nombres de variables, como llamadas sin punto al metodo de la clase.
+- Algunos tests seguian pasando aunque el CLI fallaba, porque todavia no cubrian el flujo interactivo.
+- Se reviso el codigo manualmente y se hizo una prueba real del CLI antes del commit.
+- Se limpiaron espacios sobrantes detectados con `git diff --check`.
+
+### Estado actual
+
+- Nivel esencial completado.
+- Nivel medio completado.
+- Primera tarea del nivel avanzado completada: refactor OOP.
+- 8 tareas finalizadas en Jira.
+- Tests pasando: 10 tests.
+- `main` sincronizada con GitHub tras el Pull Request #7.
+
+### Siguiente paso
+
+- Implementar autenticacion con contrasena.
+
