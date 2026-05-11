@@ -91,6 +91,7 @@ Esta tabla resume los requisitos del briefing y el estado de avance del proyecto
 - Autenticacion basica con contrasena configurada en `config.json`.
 - Interfaz grafica de escritorio con CustomTkinter.
 - Edicion de tarifas desde la interfaz grafica antes de iniciar un trayecto.
+- Indicador visual de estado: gris sin trayecto, ambar en parado y verde parpadeante en movimiento.
 
 ## Estructura Principal
 
@@ -243,6 +244,8 @@ Flujo habitual de uso:
 9. Revisar el importe final destacado y el resumen del ultimo trayecto.
 
 Si no se modifican las tarifas desde la interfaz, se utilizan las tarifas definidas en `config.json`. No se permite cambiar tarifas mientras hay un trayecto activo, para evitar calculos inconsistentes.
+
+La GUI incluye una luz de estado para reforzar la lectura visual del trayecto: gris cuando no hay trayecto activo, ambar cuando el taxi esta parado y verde con parpadeo sutil cuando esta en movimiento.
 
 ## Funcionamiento Del CLI
 

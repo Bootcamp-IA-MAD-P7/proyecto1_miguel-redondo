@@ -31,6 +31,8 @@ class TaximeterGUI(ctk.CTk):
         self.expected_password = load_password()
         self.taximeter = Taximeter(self.stopped_rate, self.moving_rate)
         self.refresh_after_id = None
+        self.status_indicator_after_id = None
+        self.status_indicator_bright = False
         self.state_buttons = {}
         self.remaining_attempts = 3
 
@@ -168,13 +170,26 @@ class TaximeterGUI(ctk.CTk):
         main.grid(row=1, column=0, sticky="nsew", padx=(24, 12), pady=24)
         main.grid_columnconfigure((0, 1), weight=1)
 
+        status_header = ctk.CTkFrame(main, fg_color="#ffffff", corner_radius=0)
+        status_header.grid(row=0, column=0, sticky="w", padx=28, pady=(26, 4))
+
+        self.status_indicator = ctk.CTkFrame(
+            status_header,
+            width=12,
+            height=12,
+            fg_color="#94a3b8",
+            corner_radius=6,
+        )
+        self.status_indicator.pack(side="left", padx=(0, 8))
+        self.status_indicator.pack_propagate(False)
+
         status_label = ctk.CTkLabel(
-            main,
+            status_header,
             text="Estado actual",
             font=("Arial", 13, "bold"),
             text_color="#64748b",
         )
-        status_label.grid(row=0, column=0, sticky="w", padx=28, pady=(26, 4))
+        status_label.pack(side="left")
 
         self.status_value = ctk.CTkLabel(
             main,
@@ -481,7 +496,7 @@ class TaximeterGUI(ctk.CTk):
             return
 
         logging.info("Trayecto iniciado desde GUI")
-        self.status_value.configure(text="Trayecto activo")
+        self.status_value.configure(text="Taxi parado")
         self.fare_value.configure(text="0.00 euros")
         self.final_total_panel.configure(fg_color="#f8fafc")
         self.final_total_value.configure(text="Total final pendiente")
@@ -489,6 +504,7 @@ class TaximeterGUI(ctk.CTk):
         self.instruction_value.configure(
             text="El taxi esta parado. Pulsa Movimiento cuando empiece a circular o Finalizar para cerrar el trayecto."
         )
+        self._set_stopped_status_indicator()
         self._highlight_state_button("stopped")
         self._refresh_trip_display()
 
@@ -503,6 +519,7 @@ class TaximeterGUI(ctk.CTk):
         self.instruction_value.configure(
             text="El taxi esta parado. El importe se calcula a tarifa reducida hasta que pulses Movimiento."
         )
+        self._set_stopped_status_indicator()
         self._highlight_state_button("stopped")
         self._refresh_trip_display()
 
@@ -517,6 +534,7 @@ class TaximeterGUI(ctk.CTk):
         self.instruction_value.configure(
             text="El taxi esta en movimiento. El importe se calcula a tarifa de movimiento hasta que pulses Parado o Finalizar."
         )
+        self._start_moving_status_indicator()
         self._highlight_state_button("moving")
         self._refresh_trip_display()
 
@@ -557,6 +575,7 @@ class TaximeterGUI(ctk.CTk):
                 f"Total: {summary['total_fare']:.2f} euros"
             )
         )
+        self._set_status_indicator("#22c55e")
         self._clear_state_button_highlight()
 
     def _highlight_state_button(self, active_state):
@@ -571,6 +590,36 @@ class TaximeterGUI(ctk.CTk):
     def _clear_state_button_highlight(self):
         for button in self.state_buttons.values():
             button.configure(border_width=0)
+
+    def _set_stopped_status_indicator(self):
+        self._cancel_status_indicator_animation()
+        self._set_status_indicator("#f59e0b")
+
+    def _start_moving_status_indicator(self):
+        self._cancel_status_indicator_animation()
+        self.status_indicator_bright = False
+        self._animate_moving_status_indicator()
+
+    def _animate_moving_status_indicator(self):
+        self.status_indicator_bright = not self.status_indicator_bright
+        color = "#22c55e" if self.status_indicator_bright else "#86efac"
+        self._set_status_indicator(color)
+        self.status_indicator_after_id = self.after(650, self._animate_moving_status_indicator)
+
+    def _set_status_indicator(self, color):
+        self._cancel_status_indicator_animation()
+        self.status_indicator.configure(fg_color=color)
+
+    def _cancel_status_indicator_animation(self):
+        if self.status_indicator_after_id is None:
+            return
+
+        try:
+            self.after_cancel(self.status_indicator_after_id)
+        except Exception:
+            pass
+
+        self.status_indicator_after_id = None
 
     def _get_current_totals(self):
         stopped_time = self.taximeter.stopped_time

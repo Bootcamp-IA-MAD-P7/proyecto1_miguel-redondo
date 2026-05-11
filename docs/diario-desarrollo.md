@@ -319,6 +319,7 @@ Trabajo realizado:
 - Se conecto la GUI con la clase `Taximeter`.
 - Se anadio actualizacion visual de tiempos e importe durante el trayecto.
 - Se anadio resaltado visual del boton de estado activo.
+- Se anadio una luz de estado con parpadeo sutil cuando el taxi esta en movimiento.
 - Se anadio una banda destacada para mostrar el importe final.
 - Se anadio una instruccion dinamica bajo los botones para orientar al usuario segun el estado del trayecto.
 - Se incorporo edicion de tarifas desde la GUI antes de iniciar el trayecto.
