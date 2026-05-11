@@ -61,6 +61,17 @@ def test_taximeter_cannot_start_trip_twice():
     assert second_result is False
 
 
+def test_taximeter_rejects_invalid_state():
+    # Verifica que solo se aceptan estados validos del taximetro.
+    taximeter = Taximeter()
+    taximeter.start_trip()
+
+    result = taximeter.change_state("flying")
+
+    assert result is False
+    assert taximeter.state == "stopped"
+
+
 def test_taximeter_finish_without_active_trip_returns_none():
     # Verifica que no se puede finalizar si no hay trayecto activo.
     taximeter = Taximeter()

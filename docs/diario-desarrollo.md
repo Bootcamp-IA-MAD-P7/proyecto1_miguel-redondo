@@ -244,6 +244,174 @@ git diff --check
 - `main` sincronizada con GitHub tras el Pull Request #7.
 - Suite de tests pasando con 10 tests.
 
+### Continuacion Del Dia
+
+Despues de completar la refactorizacion con OOP, se continuo con varias tareas del nivel avanzado y con mejoras de documentacion.
+
+#### Autenticacion Basica
+
+Trabajo realizado:
+
+- Se creo una rama especifica para autenticacion.
+- Se amplio `config.json` para incluir la contrasena del programa.
+- Se creo la funcion `load_password`.
+- Se creo la funcion `authenticate_user`.
+- El CLI paso a solicitar contrasena antes de mostrar el menu principal.
+- Se configuro un limite de tres intentos.
+- Se registraron en logs los accesos correctos y los intentos fallidos.
+- Se anadio un test para validar la carga de contrasena.
+- Se fusiono la funcionalidad mediante Pull Request.
+
+Validaciones realizadas:
+
+```bash
+python -m py_compile taximetro.py
+python -m pytest
+python taximetro.py
+```
+
+Resultado:
+
+```text
+11 tests pasados
+```
+
+Pruebas manuales:
+
+- Acceso correcto con `admin123`.
+- Tres intentos fallidos.
+- Registro de autenticacion correcta en `taximetro.log`.
+- Registro de intentos fallidos en `taximetro.log`.
+
+#### Documentacion Profesional
+
+Trabajo realizado:
+
+- Se reviso el estilo general del `README.md`.
+- Se amplio la explicacion de instalacion, dependencias y ejecucion.
+- Se documento el uso de `config.json`.
+- Se documento el flujo de trabajo con ramas, commits, Pull Requests y sincronizacion de `main`.
+- Se anadio una seccion de seguimiento del briefing separada por niveles.
+- Se usaron checks visuales para mostrar requisitos completados, en curso y pendientes.
+
+Decision:
+
+- Mantener el README como documento principal para explicar el estado funcional del proyecto.
+- Mantener el diario como documento de aprendizaje y trazabilidad del proceso.
+
+#### Interfaz Grafica Con CustomTkinter
+
+Trabajo realizado:
+
+- Se creo la rama `feature/gui-customtkinter`.
+- Se instalo `customtkinter`.
+- Se actualizo `requirements.txt`.
+- Se creo el archivo `gui.py`.
+- Se diseno una primera interfaz grafica con:
+  - pantalla de autenticacion,
+  - panel de estado,
+  - importe actual,
+  - tiempo parado,
+  - tiempo en movimiento,
+  - configuracion visible,
+  - ultimo trayecto,
+  - botones de control.
+- Se conecto la GUI con la clase `Taximeter`.
+- Se anadio actualizacion visual de tiempos e importe durante el trayecto.
+- Se anadio resaltado visual del boton de estado activo.
+- Se anadio una luz de estado con parpadeo sutil cuando el taxi esta en movimiento.
+- Se anadio una banda destacada para mostrar el importe final.
+- Se anadio una instruccion dinamica bajo los botones para orientar al usuario segun el estado del trayecto.
+- Se incorporo edicion de tarifas desde la GUI antes de iniciar el trayecto.
+- Se mantuvo la restriccion de no cambiar tarifas durante un trayecto activo para evitar calculos inconsistentes.
+- Se conecto la finalizacion desde GUI con el historico `trip_history.txt`.
+- Se anadieron logs especificos para acciones realizadas desde la GUI.
+- Se reforzo la validacion de estados en la clase `Taximeter`.
+- Se anadio un test para rechazar estados invalidos.
+- Se identifico como mejora futura un sistema de gestion de usuarios para sustituir la contrasena unica del MVP.
+
+Validaciones realizadas:
+
+```bash
+python -m py_compile taximetro.py
+python -m py_compile gui.py
+python -m pytest
+python gui.py
+```
+
+Resultado:
+
+```text
+12 tests pasados
+```
+
+Pruebas manuales realizadas:
+
+- Probar acceso correcto con `admin123`.
+- Probar acceso incorrecto y bloqueo tras tres intentos.
+- Probar `Iniciar`.
+- Probar cambio a `Movimiento`.
+- Probar cambio a `Parado`.
+- Probar `Finalizar`.
+- Comprobar que el importe final queda visible.
+- Comprobar que el boton de estado activo se resalta correctamente.
+- Comprobar que las tarifas se pueden cambiar antes de iniciar un trayecto.
+- Comprobar que no se pueden cambiar tarifas durante un trayecto activo.
+- Comprobar que un trayecto finalizado desde la GUI se guarda en el historico.
+- Comprobar que la luz de estado cambia segun el estado del trayecto.
+
+#### Revision Profunda Del Proyecto
+
+Antes de cerrar la GUI se realizo una revision general del proyecto frente al briefing.
+
+Puntos revisados:
+
+- Estructura del repositorio.
+- Uso de entorno virtual `.venv`.
+- Flujo de trabajo con ramas y Pull Requests.
+- Estado del README.
+- Estado del diario de desarrollo.
+- Funcionalidad del CLI.
+- Funcionalidad de la GUI.
+- Configuracion de tarifas.
+- Autenticacion.
+- Logs.
+- Historico de trayectos.
+- Tests unitarios.
+- Archivos ignorados en `.gitignore`.
+
+Conclusiones:
+
+- El nivel esencial queda completado.
+- El nivel medio queda completado.
+- El nivel avanzado queda completado.
+- El nivel experto queda pendiente para la siguiente fase.
+- La GUI mantiene coherencia funcional con el CLI: calcula tarifas, registra historico y genera logs.
+- El proyecto conserva un flujo profesional basado en ramas, commits descriptivos, Pull Requests y validaciones.
+
+Mejoras identificadas para fases futuras:
+
+- Sustituir el historico en texto plano por SQLite.
+- Dockerizar la aplicacion.
+- Crear una version web.
+- Evolucionar la autenticacion basica hacia un sistema de gestion de usuarios.
+
+### Estado Actual
+
+- Nivel esencial completado.
+- Nivel medio completado.
+- Nivel avanzado completado.
+- OOP completado.
+- Autenticacion basica completada.
+- Documentacion principal mejorada.
+- GUI completada con CustomTkinter.
+- Suite ampliada a 12 tests.
+- Rama actual de GUI pendiente de Pull Request y fusion en `main`.
+
 ### Siguiente Paso
 
-- Implementar autenticacion con contrasena.
+- Actualizar Jira marcando la GUI y el nivel avanzado como completados.
+- Abrir o actualizar el Pull Request de `feature/gui-customtkinter`.
+- Fusionar la rama en `main`.
+- Actualizar `main` local con `git pull origin main`.
+- Iniciar el nivel experto con base de datos SQLite.
