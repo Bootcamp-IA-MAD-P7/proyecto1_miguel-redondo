@@ -7,6 +7,7 @@ STOPPED_RATE = 0.02
 MOVING_RATE = 0.05
 HISTORY_FILE = "trip_history.txt"
 CONFIG_FILE = "config.json"
+VALID_STATES = ("stopped", "moving")
 
 def load_rates():
     """
@@ -21,8 +22,8 @@ def load_rates():
         moving_rate = config.get("moving_rate", MOVING_RATE)
         return stopped_rate, moving_rate
 
-    except FileNotFoundError:
-        logging.warning("Archivo de configuracion no encontrado. Se usan las tarifas por defecto.")
+    except (FileNotFoundError, json.JSONDecodeError):
+        logging.warning("No se pudo cargar la configuracion. Se usan las tarifas por defecto.")
         return STOPPED_RATE, MOVING_RATE
 
 def load_password():
@@ -35,8 +36,8 @@ def load_password():
 
         return config.get("password", "admin123")
 
-    except FileNotFoundError:
-        logging.warning("Archivo de configuracion no encontrado. Se usa contrasena por defecto.")
+    except (FileNotFoundError, json.JSONDecodeError):
+        logging.warning("No se pudo cargar la configuracion. Se usa contrasena por defecto.")
         return "admin123"
 
 def authenticate_user(max_attempts=3):
@@ -123,6 +124,9 @@ class Taximeter:
         Cambia el estado del taxi y acumula el tiempo del estado anterior.
         """
         if not self.trip_active:
+            return False
+
+        if new_state not in VALID_STATES:
             return False
 
         duration = time.time() - self.state_start_time

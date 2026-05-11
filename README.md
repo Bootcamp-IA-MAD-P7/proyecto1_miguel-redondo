@@ -18,6 +18,7 @@ Estado funcional actual:
 - Historico de trayectos en archivo de texto.
 - Configuracion externa de tarifas y contrasena.
 - Clase `Taximeter` para gestionar el estado del trayecto.
+- Interfaz grafica de escritorio en desarrollo con CustomTkinter.
 
 ## Seguimiento Del Briefing
 
@@ -88,6 +89,8 @@ Esta tabla resume los requisitos del briefing y el estado de avance del proyecto
   - `change_state`
   - `finish_trip`
 - Autenticacion basica con contrasena configurada en `config.json`.
+- Interfaz grafica de escritorio con CustomTkinter.
+- Edicion de tarifas desde la interfaz grafica antes de iniciar un trayecto.
 
 ## Estructura Principal
 
@@ -165,7 +168,7 @@ python -m pytest
 Resultado esperado de tests:
 
 ```text
-11 tests pasados
+12 tests pasados
 ```
 
 ## Configuracion
@@ -195,10 +198,18 @@ Nota tecnica: la contrasena esta en texto plano porque se trata de una autentica
 
 ## Ejecucion Del Programa
 
+El proyecto puede ejecutarse de dos formas: mediante CLI o mediante interfaz grafica de escritorio.
+
 Ejecutar la aplicacion CLI:
 
 ```bash
 python taximetro.py
+```
+
+Ejecutar la aplicacion grafica:
+
+```bash
+python gui.py
 ```
 
 Al arrancar, el programa solicita una contrasena:
@@ -214,6 +225,24 @@ admin123
 ```
 
 Si la contrasena es correcta, el programa muestra el menu principal. Si se introducen tres contrasenas incorrectas, el acceso se deniega y el programa finaliza.
+
+## Funcionamiento De La GUI
+
+La interfaz grafica permite usar el taximetro desde una ventana de escritorio.
+
+Flujo habitual de uso:
+
+1. Ejecutar `python gui.py`.
+2. Introducir la contrasena configurada.
+3. Revisar las tarifas cargadas por defecto.
+4. Cambiar las tarifas si se necesita adaptar el precio a la demanda actual.
+5. Pulsar `Aplicar tarifas`.
+6. Pulsar `Iniciar`.
+7. Cambiar entre `Parado` y `Movimiento` durante el trayecto.
+8. Pulsar `Finalizar` para cerrar el trayecto.
+9. Revisar el importe final destacado y el resumen del ultimo trayecto.
+
+Si no se modifican las tarifas desde la interfaz, se utilizan las tarifas definidas en `config.json`. No se permite cambiar tarifas mientras hay un trayecto activo, para evitar calculos inconsistentes.
 
 ## Funcionamiento Del CLI
 
@@ -297,13 +326,14 @@ Actualmente se validan:
 - Estado inicial de la clase `Taximeter`.
 - Inicio de trayecto.
 - Prevencion de trayectos duplicados.
+- Rechazo de estados invalidos.
 - Finalizacion sin trayecto activo.
 - Resumen devuelto al finalizar un trayecto.
 
 Resultado actual:
 
 ```text
-11 tests pasados
+12 tests pasados
 ```
 
 ## Archivos Generados Localmente
@@ -340,6 +370,7 @@ Ejemplos de ramas utilizadas:
 - `feature/configuracion-tarifas`
 - `feature/oop-taximeter`
 - `feature/autenticacion-basica`
+- `feature/gui-customtkinter`
 
 ## Gestion Del Proyecto
 
@@ -361,6 +392,7 @@ El registro de decisiones, avances, problemas y validaciones se mantiene en:
 
 ## Proximos Pasos
 
-- Preparar una interfaz grafica.
+- Validar y cerrar la interfaz grafica.
 - Evolucionar el historico hacia base de datos SQLite.
+- Valorar un sistema de gestion de usuarios para sustituir la contrasena unica del MVP.
 - Preparar Docker y version web para el nivel experto.

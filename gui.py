@@ -1,7 +1,16 @@
+import logging
 import time
 
 import customtkinter as ctk
-from taximetro import Taximeter, calculate_fare, load_password, load_rates
+from taximetro import (
+    MOVING_RATE,
+    STOPPED_RATE,
+    Taximeter,
+    calculate_fare,
+    load_password,
+    load_rates,
+    save_trip_history,
+)
 
 class TaximeterGUI(ctk.CTk):
     """
@@ -26,6 +35,7 @@ class TaximeterGUI(ctk.CTk):
         self.remaining_attempts = 3
 
         self.configure(fg_color="#f4f6f8")
+        logging.info("Interfaz grafica iniciada")
         self._build_login_screen()
 
     def _build_login_screen(self):
@@ -89,12 +99,15 @@ class TaximeterGUI(ctk.CTk):
         password = self.password_entry.get().strip()
 
         if password == self.expected_password:
+            logging.info("Autenticacion correcta en GUI")
             self._show_taximeter_screen()
             return
 
         self.remaining_attempts -= 1
+        logging.warning("Intento de autenticacion fallido en GUI")
 
         if self.remaining_attempts == 0:
+            logging.warning("Acceso denegado en GUI por agotar intentos")
             self.login_message.configure(
                 text="Acceso denegado. Cierra la aplicacion y vuelve a intentarlo.",
                 text_color="#b91c1c",
@@ -251,10 +264,9 @@ class TaximeterGUI(ctk.CTk):
         )
         title.pack(anchor="w", padx=22, pady=(24, 14))
 
-        self._info_row(side, "Tarifa parado", f"{self.stopped_rate} euros/s")
-        self._info_row(side, "Tarifa movimiento", f"{self.moving_rate} euros/s")
+        self._build_rate_editor(side)
         self._info_row(side, "Autenticacion", "Activa")
-        self._info_row(side, "Tests", "11 pasados")
+        self._info_row(side, "Tests", "12 pasados")
 
         separator = ctk.CTkFrame(side, fg_color="#e2e8f0", height=1)
         separator.pack(fill="x", padx=22, pady=18)
@@ -344,11 +356,131 @@ class TaximeterGUI(ctk.CTk):
         )
         value_widget.pack(anchor="w", padx=14, pady=(0, 10))
 
+    def _build_rate_editor(self, parent):
+        editor = ctk.CTkFrame(parent, fg_color="#f8fafc", corner_radius=6)
+        editor.pack(fill="x", padx=22, pady=5)
+
+        title = ctk.CTkLabel(
+            editor,
+            text="Tarifas",
+            font=("Arial", 12, "bold"),
+            text_color="#64748b",
+        )
+        title.pack(anchor="w", padx=14, pady=(10, 4))
+
+        self.stopped_rate_entry = self._rate_entry(editor, "Parado", self.stopped_rate)
+        self.moving_rate_entry = self._rate_entry(editor, "Movimiento", self.moving_rate)
+
+        self.rate_message = ctk.CTkLabel(
+            editor,
+            text="Si no cambias nada, se usan las tarifas por defecto.",
+            font=("Arial", 11),
+            text_color="#64748b",
+            wraplength=200,
+            justify="left",
+        )
+        self.rate_message.pack(anchor="w", padx=14, pady=(4, 8))
+
+        apply_button = ctk.CTkButton(
+            editor,
+            text="Aplicar tarifas",
+            height=32,
+            corner_radius=6,
+            fg_color="#2563eb",
+            hover_color="#1d4ed8",
+            font=("Arial", 12, "bold"),
+            command=self.apply_rates,
+        )
+        apply_button.pack(fill="x", padx=14, pady=(0, 6))
+
+        reset_button = ctk.CTkButton(
+            editor,
+            text="Restaurar defecto",
+            height=32,
+            corner_radius=6,
+            fg_color="#64748b",
+            hover_color="#475569",
+            font=("Arial", 12, "bold"),
+            command=self.reset_default_rates,
+        )
+        reset_button.pack(fill="x", padx=14, pady=(0, 12))
+
+    def _rate_entry(self, parent, label, value):
+        label_widget = ctk.CTkLabel(
+            parent,
+            text=f"{label} (euros/s)",
+            font=("Arial", 11, "bold"),
+            text_color="#334155",
+        )
+        label_widget.pack(anchor="w", padx=14, pady=(4, 2))
+
+        entry = ctk.CTkEntry(parent, height=32)
+        entry.insert(0, str(value))
+        entry.pack(fill="x", padx=14)
+        return entry
+
+    def apply_rates(self, silent=False):
+        if self.taximeter.trip_active:
+            self.rate_message.configure(
+                text="Finaliza el trayecto activo antes de cambiar tarifas.",
+                text_color="#b91c1c",
+            )
+            return False
+
+        try:
+            stopped_rate = float(self.stopped_rate_entry.get().replace(",", "."))
+            moving_rate = float(self.moving_rate_entry.get().replace(",", "."))
+        except ValueError:
+            self.rate_message.configure(
+                text="Introduce tarifas numericas validas.",
+                text_color="#b91c1c",
+            )
+            return False
+
+        if stopped_rate < 0 or moving_rate < 0:
+            self.rate_message.configure(
+                text="Las tarifas no pueden ser negativas.",
+                text_color="#b91c1c",
+            )
+            return False
+
+        self.stopped_rate = stopped_rate
+        self.moving_rate = moving_rate
+        self.taximeter.stopped_rate = stopped_rate
+        self.taximeter.moving_rate = moving_rate
+
+        if not silent:
+            self.rate_message.configure(
+                text="Tarifas aplicadas para los proximos trayectos.",
+                text_color="#166534",
+            )
+        logging.info(f"Tarifas actualizadas desde GUI: parado={stopped_rate}, movimiento={moving_rate}")
+        return True
+
+    def reset_default_rates(self):
+        if self.taximeter.trip_active:
+            self.rate_message.configure(
+                text="Finaliza el trayecto activo antes de restaurar tarifas.",
+                text_color="#b91c1c",
+            )
+            return
+
+        self.stopped_rate_entry.delete(0, "end")
+        self.stopped_rate_entry.insert(0, str(STOPPED_RATE))
+        self.moving_rate_entry.delete(0, "end")
+        self.moving_rate_entry.insert(0, str(MOVING_RATE))
+        self.apply_rates()
+
     def start_trip(self):
+        if not self.apply_rates(silent=True):
+            return
+
         if not self.taximeter.start_trip():
+            logging.warning("Intento de iniciar un trayecto activo desde GUI")
             self.status_value.configure(text="Ya hay un trayecto activo")
             return
 
+        logging.info("Trayecto iniciado desde GUI")
         self.status_value.configure(text="Trayecto activo")
         self.fare_value.configure(text="0.00 euros")
         self.final_total_panel.configure(fg_color="#f8fafc")
@@ -362,9 +494,11 @@ class TaximeterGUI(ctk.CTk):
 
     def set_stopped(self):
         if not self.taximeter.change_state("stopped"):
+            logging.warning("Intento de cambiar a parado sin trayecto activo desde GUI")
             self.status_value.configure(text="Inicia un trayecto primero")
             return
 
+        logging.info("Estado actualizado desde GUI: parado")
         self.status_value.configure(text="Taxi parado")
         self.instruction_value.configure(
             text="El taxi esta parado. El importe se calcula a tarifa reducida hasta que pulses Movimiento."
@@ -374,9 +508,11 @@ class TaximeterGUI(ctk.CTk):
 
     def set_moving(self):
         if not self.taximeter.change_state("moving"):
+            logging.warning("Intento de cambiar a movimiento sin trayecto activo desde GUI")
             self.status_value.configure(text="Inicia un trayecto primero")
             return
 
+        logging.info("Estado actualizado desde GUI: en movimiento")
         self.status_value.configure(text="Taxi en movimiento")
         self.instruction_value.configure(
             text="El taxi esta en movimiento. El importe se calcula a tarifa de movimiento hasta que pulses Parado o Finalizar."
@@ -389,8 +525,20 @@ class TaximeterGUI(ctk.CTk):
         summary = self.taximeter.finish_trip()
 
         if summary is None:
+            logging.warning("Intento de finalizar sin trayecto activo desde GUI")
             self.status_value.configure(text="Inicia un trayecto primero")
             return
+
+        save_trip_history(
+            summary["stopped_time"],
+            summary["moving_time"],
+            summary["total_fare"],
+        )
+        logging.info(
+            f"Trayecto finalizado desde GUI. Tiempo parado: {summary['stopped_time']:.1f}s, "
+            f"tiempo en movimiento: {summary['moving_time']:.1f}s, "
+            f"total: {summary['total_fare']:.2f} euros"
+        )
 
         self.status_value.configure(text="Trayecto finalizado")
         self.fare_value.configure(text=f"{summary['total_fare']:.2f} euros")

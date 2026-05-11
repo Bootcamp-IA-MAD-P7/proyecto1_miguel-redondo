@@ -321,6 +321,13 @@ Trabajo realizado:
 - Se anadio resaltado visual del boton de estado activo.
 - Se anadio una banda destacada para mostrar el importe final.
 - Se anadio una instruccion dinamica bajo los botones para orientar al usuario segun el estado del trayecto.
+- Se incorporo edicion de tarifas desde la GUI antes de iniciar el trayecto.
+- Se mantuvo la restriccion de no cambiar tarifas durante un trayecto activo para evitar calculos inconsistentes.
+- Se conecto la finalizacion desde GUI con el historico `trip_history.txt`.
+- Se anadieron logs especificos para acciones realizadas desde la GUI.
+- Se reforzo la validacion de estados en la clase `Taximeter`.
+- Se anadio un test para rechazar estados invalidos.
+- Se identifico como mejora futura un sistema de gestion de usuarios para sustituir la contrasena unica del MVP.
 
 Estado:
 
@@ -346,6 +353,9 @@ Pruebas manuales pendientes:
 - Probar `Finalizar`.
 - Comprobar que el importe final queda visible.
 - Comprobar que el boton de estado activo se resalta correctamente.
+- Comprobar que las tarifas se pueden cambiar antes de iniciar un trayecto.
+- Comprobar que no se pueden cambiar tarifas durante un trayecto activo.
+- Comprobar que un trayecto finalizado desde la GUI se guarda en el historico.
 
 ### Estado Actual
 
@@ -356,10 +366,11 @@ Pruebas manuales pendientes:
 - Autenticacion basica completada.
 - Documentacion principal mejorada.
 - GUI iniciada con CustomTkinter.
+- Suite ampliada a 12 tests.
 - Rama actual de GUI pendiente de validacion final y commit.
 
 ### Siguiente Paso
 
 - Validar la GUI.
-- Hacer commit de `gui.py`, `requirements.txt` y `README.md` si la prueba es correcta.
+- Hacer commit de los cambios de GUI, documentacion, `.gitignore`, tests y validacion de estados si la prueba es correcta.
 - Actualizar Jira dejando la tarea de GUI como en curso o completada segun el resultado.
