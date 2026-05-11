@@ -6,16 +6,17 @@ El proyecto forma parte del bootcamp de Factoria F5 y se esta desarrollando de f
 
 ## Estado Actual
 
-El proyecto tiene completados el nivel esencial y el nivel medio del briefing. Tambien se ha iniciado el nivel avanzado con una refactorizacion a programacion orientada a objetos.
+El proyecto tiene completados el nivel esencial y el nivel medio del briefing. Tambien se ha iniciado el nivel avanzado, incorporando programacion orientada a objetos y autenticacion basica por contrasena.
 
 Estado funcional actual:
 
 - CLI operativo.
+- Autenticacion basica antes de acceder al programa.
 - Calculo de tarifas por tiempo parado y tiempo en movimiento.
 - Logs tecnicos.
 - Tests unitarios.
 - Historico de trayectos en archivo de texto.
-- Configuracion externa de tarifas.
+- Configuracion externa de tarifas y contrasena.
 - Clase `Taximeter` para gestionar el estado del trayecto.
 
 ## Funcionalidades
@@ -45,6 +46,7 @@ Estado funcional actual:
   - `start_trip`
   - `change_state`
   - `finish_trip`
+- Autenticacion basica con contrasena configurada en `config.json`.
 
 ## Estructura Principal
 
@@ -60,29 +62,32 @@ Estado funcional actual:
     `-- test_taximetro.py
 ```
 
-## Tarifas
-
-Las tarifas se definen en `config.json`:
-
-```json
-{
-  "stopped_rate": 0.02,
-  "moving_rate": 0.05
-}
-```
-
-Tarifas actuales:
-
-- Taxi parado: 0.02 euros/segundo.
-- Taxi en movimiento: 0.05 euros/segundo.
-
 ## Requisitos
 
-- Python 3.11
-- Git
-- Entorno virtual dentro del proyecto
+| Requisito | Uso |
+| --- | --- |
+| Python 3.11 | Ejecutar la aplicacion y los tests. |
+| Git | Control de versiones y trabajo con ramas. |
+| GitHub | Repositorio remoto y Pull Requests. |
+| Entorno virtual `.venv` | Aislar dependencias del proyecto. |
 
-## Instalacion
+## Dependencias
+
+Las dependencias del proyecto estan declaradas en `requirements.txt`.
+
+Dependencia principal:
+
+| Paquete | Uso |
+| --- | --- |
+| `pytest` | Ejecucion de tests unitarios. |
+
+Instalacion de dependencias:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+## Instalacion Desde Cero
 
 Clonar el repositorio:
 
@@ -91,10 +96,15 @@ git clone https://github.com/Bootcamp-IA-MAD-P7/proyecto1_miguel-redondo.git
 cd proyecto1_miguel-redondo
 ```
 
-Crear y activar el entorno virtual:
+Crear el entorno virtual:
 
 ```bash
 python -m venv .venv
+```
+
+Activar el entorno virtual en Git Bash:
+
+```bash
 source .venv/Scripts/activate
 ```
 
@@ -104,7 +114,45 @@ Instalar dependencias:
 python -m pip install -r requirements.txt
 ```
 
-## Ejecucion
+Comprobar que el entorno esta activo:
+
+```bash
+python --version
+python -m pytest
+```
+
+Resultado esperado de tests:
+
+```text
+11 tests pasados
+```
+
+## Configuracion
+
+El archivo `config.json` centraliza valores configurables de la aplicacion:
+
+```json
+{
+  "stopped_rate": 0.02,
+  "moving_rate": 0.05,
+  "password": "admin123"
+}
+```
+
+| Clave | Descripcion |
+| --- | --- |
+| `stopped_rate` | Tarifa por segundo cuando el taxi esta parado. |
+| `moving_rate` | Tarifa por segundo cuando el taxi esta en movimiento. |
+| `password` | Contrasena basica para acceder al programa. |
+
+Tarifas actuales:
+
+- Taxi parado: 0.02 euros/segundo.
+- Taxi en movimiento: 0.05 euros/segundo.
+
+Nota tecnica: la contrasena esta en texto plano porque se trata de una autenticacion basica de nivel academico. Una mejora futura seria almacenarla con hash.
+
+## Ejecucion Del Programa
 
 Ejecutar la aplicacion CLI:
 
@@ -112,15 +160,85 @@ Ejecutar la aplicacion CLI:
 python taximetro.py
 ```
 
+Al arrancar, el programa solicita una contrasena:
+
+```text
+Introduce la contrasena:
+```
+
+Contrasena configurada por defecto:
+
+```text
+admin123
+```
+
+Si la contrasena es correcta, el programa muestra el menu principal. Si se introducen tres contrasenas incorrectas, el acceso se deniega y el programa finaliza.
+
+## Funcionamiento Del CLI
+
+Flujo habitual de uso:
+
+1. Ejecutar `python taximetro.py`.
+2. Introducir la contrasena.
+3. Iniciar un trayecto con `start`.
+4. Cambiar a movimiento con `move`.
+5. Cambiar a parado con `stop` cuando corresponda.
+6. Finalizar el trayecto con `finish`.
+7. Revisar el resumen mostrado.
+8. Iniciar otro trayecto o salir con `exit`.
+
 Comandos disponibles:
 
-| Comando | Descripcion |
-| --- | --- |
-| `start` | Inicia un trayecto. |
-| `stop` | Indica que el taxi esta parado. |
-| `move` | Indica que el taxi esta en movimiento. |
-| `finish` | Finaliza el trayecto y muestra el importe total. |
-| `exit` | Cierra el programa. |
+| Comando | Descripcion | Requiere trayecto activo |
+| --- | --- | --- |
+| `start` | Inicia un trayecto. | No |
+| `stop` | Cambia el estado del taxi a parado. | Si |
+| `move` | Cambia el estado del taxi a movimiento. | Si |
+| `finish` | Finaliza el trayecto y muestra el importe total. | Si |
+| `exit` | Cierra el programa. | No |
+
+Ejemplo de ejecucion:
+
+```text
+Introduce la contrasena: admin123
+Acceso concedido.
+
+Bienvenido al Taximetro Digital F5
+Tarifas: parado = 0.02 euros/segundo | movimiento = 0.05 euros/segundo
+
+> start
+Trayecto iniciado. Estado inicial: parado.
+> move
+Estado actualizado: en movimiento.
+> stop
+Estado actualizado: parado.
+> finish
+
+--- Resumen del trayecto ---
+Tiempo parado: 5.4 segundos
+Tiempo en movimiento: 8.2 segundos
+Importe total: 0.52 euros
+----------------------------
+
+> exit
+Saliendo del programa. Hasta pronto.
+```
+
+## Calculo De Tarifa
+
+La tarifa se calcula con la funcion `calculate_fare`:
+
+```text
+importe = segundos_parado * tarifa_parado + segundos_movimiento * tarifa_movimiento
+```
+
+Ejemplo:
+
+```text
+10 segundos parado * 0.02 = 0.20 euros
+5 segundos en movimiento * 0.05 = 0.25 euros
+total = 0.45 euros
+```
 
 ## Tests
 
@@ -134,6 +252,7 @@ Actualmente se validan:
 
 - Calculo de tarifa con tarifas por defecto.
 - Calculo de tarifa con tarifas configurables.
+- Carga de contrasena desde configuracion.
 - Estado inicial de la clase `Taximeter`.
 - Inicio de trayecto.
 - Prevencion de trayectos duplicados.
@@ -143,7 +262,7 @@ Actualmente se validan:
 Resultado actual:
 
 ```text
-10 tests pasados
+11 tests pasados
 ```
 
 ## Archivos Generados Localmente
@@ -179,6 +298,7 @@ Ejemplos de ramas utilizadas:
 - `feature/historico-trayectos`
 - `feature/configuracion-tarifas`
 - `feature/oop-taximeter`
+- `feature/autenticacion-basica`
 
 ## Gestion Del Proyecto
 
@@ -188,7 +308,6 @@ El seguimiento del trabajo se realiza mediante un tablero Kanban en Jira:
 
 Estado actual:
 
-- 8 tareas finalizadas.
 - Nivel esencial completado.
 - Nivel medio completado.
 - Nivel avanzado iniciado.
@@ -201,7 +320,6 @@ El registro de decisiones, avances, problemas y validaciones se mantiene en:
 
 ## Proximos Pasos
 
-- Implementar autenticacion basica.
 - Preparar una interfaz grafica.
 - Evolucionar el historico hacia base de datos SQLite.
 - Preparar Docker y version web para el nivel experto.
