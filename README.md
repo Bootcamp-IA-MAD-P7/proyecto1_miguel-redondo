@@ -4,9 +4,9 @@ Proyecto desarrollado en Python para simular un taximetro digital que calcula ta
 
 ## Estado del proyecto
 
-El proyecto se encuentra en desarrollo. Actualmente estan completados el nivel esencial y el nivel medio del briefing.
+El proyecto se encuentra en desarrollo. Actualmente estan completados el nivel esencial y el nivel medio del briefing. Tambien se ha iniciado el nivel avanzado con la refactorizacion a programacion orientada a objetos.
 
-El programa ya permite trabajar desde una interfaz CLI, registrar eventos mediante logs, ejecutar tests unitarios, guardar un historico de trayectos y configurar tarifas desde un archivo externo.
+El programa ya permite trabajar desde una interfaz CLI, registrar eventos mediante logs, ejecutar tests unitarios, guardar un historico de trayectos, configurar tarifas desde un archivo externo y gestionar el estado del taximetro mediante una clase `Taximeter`.
 
 ## Funcionalidades implementadas
 
@@ -27,6 +27,12 @@ El programa ya permite trabajar desde una interfaz CLI, registrar eventos median
 - Tests unitarios con `pytest`.
 - Historico de trayectos en archivo de texto plano.
 - Configuracion de tarifas mediante `config.json`.
+
+### Nivel avanzado
+
+- Refactorizacion inicial con programacion orientada a objetos.
+- Clase `Taximeter` para gestionar el estado del trayecto.
+- Metodos `start_trip`, `change_state` y `finish_trip`.
 
 ## Tarifas actuales
 
@@ -92,7 +98,7 @@ Ejecutar la suite de tests:
 python -m pytest
 ```
 
-Actualmente se validan los calculos de tarifa con tarifas por defecto y tarifas configurables.
+Actualmente se validan los calculos de tarifa, las tarifas configurables y el comportamiento principal de la clase `Taximeter`.
 
 ## Archivos generados localmente
 
@@ -109,7 +115,7 @@ El proyecto se organiza mediante un tablero Kanban en Jira:
 
 [Ver tablero Jira](https://miguel-redondo.atlassian.net/jira/core/projects/TAXI/board?filter=&groupBy=status)
 
-Estado actual del tablero: 7 tareas finalizadas.
+Estado actual del tablero: 8 tareas finalizadas.
 
 ## Diario de desarrollo
 
@@ -119,8 +125,6 @@ El registro diario de decisiones, avances y problemas se encuentra en:
 
 ## Proximos pasos
 
-- Empezar el nivel avanzado.
-- Refactorizar el codigo con programacion orientada a objetos.
 - Implementar autenticacion basica.
 - Preparar una interfaz grafica.
 - Evolucionar el historico hacia base de datos SQLite.
