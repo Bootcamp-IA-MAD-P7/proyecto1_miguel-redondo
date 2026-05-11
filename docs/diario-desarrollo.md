@@ -330,21 +330,22 @@ Trabajo realizado:
 - Se anadio un test para rechazar estados invalidos.
 - Se identifico como mejora futura un sistema de gestion de usuarios para sustituir la contrasena unica del MVP.
 
-Estado:
-
-- La GUI esta en desarrollo.
-- Falta realizar una validacion final completa antes de cerrar la funcionalidad.
-- Falta decidir si se fusiona la rama hoy o se deja abierta para revisarla al dia siguiente.
-
-Validaciones pendientes:
+Validaciones realizadas:
 
 ```bash
+python -m py_compile taximetro.py
 python -m py_compile gui.py
 python -m pytest
 python gui.py
 ```
 
-Pruebas manuales pendientes:
+Resultado:
+
+```text
+12 tests pasados
+```
+
+Pruebas manuales realizadas:
 
 - Probar acceso correcto con `admin123`.
 - Probar acceso incorrecto y bloqueo tras tres intentos.
@@ -357,21 +358,60 @@ Pruebas manuales pendientes:
 - Comprobar que las tarifas se pueden cambiar antes de iniciar un trayecto.
 - Comprobar que no se pueden cambiar tarifas durante un trayecto activo.
 - Comprobar que un trayecto finalizado desde la GUI se guarda en el historico.
+- Comprobar que la luz de estado cambia segun el estado del trayecto.
+
+#### Revision Profunda Del Proyecto
+
+Antes de cerrar la GUI se realizo una revision general del proyecto frente al briefing.
+
+Puntos revisados:
+
+- Estructura del repositorio.
+- Uso de entorno virtual `.venv`.
+- Flujo de trabajo con ramas y Pull Requests.
+- Estado del README.
+- Estado del diario de desarrollo.
+- Funcionalidad del CLI.
+- Funcionalidad de la GUI.
+- Configuracion de tarifas.
+- Autenticacion.
+- Logs.
+- Historico de trayectos.
+- Tests unitarios.
+- Archivos ignorados en `.gitignore`.
+
+Conclusiones:
+
+- El nivel esencial queda completado.
+- El nivel medio queda completado.
+- El nivel avanzado queda completado.
+- El nivel experto queda pendiente para la siguiente fase.
+- La GUI mantiene coherencia funcional con el CLI: calcula tarifas, registra historico y genera logs.
+- El proyecto conserva un flujo profesional basado en ramas, commits descriptivos, Pull Requests y validaciones.
+
+Mejoras identificadas para fases futuras:
+
+- Sustituir el historico en texto plano por SQLite.
+- Dockerizar la aplicacion.
+- Crear una version web.
+- Evolucionar la autenticacion basica hacia un sistema de gestion de usuarios.
 
 ### Estado Actual
 
 - Nivel esencial completado.
 - Nivel medio completado.
-- Nivel avanzado en curso.
+- Nivel avanzado completado.
 - OOP completado.
 - Autenticacion basica completada.
 - Documentacion principal mejorada.
-- GUI iniciada con CustomTkinter.
+- GUI completada con CustomTkinter.
 - Suite ampliada a 12 tests.
-- Rama actual de GUI pendiente de validacion final y commit.
+- Rama actual de GUI pendiente de Pull Request y fusion en `main`.
 
 ### Siguiente Paso
 
-- Validar la GUI.
-- Hacer commit de los cambios de GUI, documentacion, `.gitignore`, tests y validacion de estados si la prueba es correcta.
-- Actualizar Jira dejando la tarea de GUI como en curso o completada segun el resultado.
+- Actualizar Jira marcando la GUI y el nivel avanzado como completados.
+- Abrir o actualizar el Pull Request de `feature/gui-customtkinter`.
+- Fusionar la rama en `main`.
+- Actualizar `main` local con `git pull origin main`.
+- Iniciar el nivel experto con base de datos SQLite.

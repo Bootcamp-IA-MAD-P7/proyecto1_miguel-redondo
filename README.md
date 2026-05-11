@@ -1,35 +1,34 @@
 # Proyecto 1 - Taximetro Digital
 
+![Python](https://img.shields.io/badge/Python-3.11-3776AB)
+![Estado](https://img.shields.io/badge/Estado-Nivel%20avanzado%20completado-2ea44f)
+![Tests](https://img.shields.io/badge/Tests-12%20passed-2ea44f)
+![GUI](https://img.shields.io/badge/GUI-CustomTkinter-0969da)
+![Gestion](https://img.shields.io/badge/Gestion-Jira-0052CC)
+
 Aplicacion desarrollada en Python para simular un taximetro digital. El sistema calcula el importe de un trayecto a partir del tiempo que el taxi permanece parado y del tiempo que esta en movimiento.
 
-El proyecto forma parte del bootcamp de Factoria F5 y se esta desarrollando de forma incremental, aplicando control de versiones, ramas de trabajo, Pull Requests, documentacion tecnica, tests y gestion de tareas con Jira.
+El proyecto forma parte del bootcamp de Factoria F5 y se ha desarrollado de forma incremental, utilizando entorno virtual, Git, ramas de trabajo, Pull Requests, tests unitarios, documentacion tecnica y gestion de tareas con Jira.
 
-## Estado Actual
+## Estado Del Proyecto
 
-El proyecto tiene completados el nivel esencial y el nivel medio del briefing. Tambien se ha iniciado el nivel avanzado, incorporando programacion orientada a objetos y autenticacion basica por contrasena.
+El proyecto cubre actualmente los niveles esencial, medio y avanzado del briefing.
 
-Estado funcional actual:
-
-- CLI operativo.
-- Autenticacion basica antes de acceder al programa.
-- Calculo de tarifas por tiempo parado y tiempo en movimiento.
-- Logs tecnicos.
-- Tests unitarios.
-- Historico de trayectos en archivo de texto.
-- Configuracion externa de tarifas y contrasena.
-- Clase `Taximeter` para gestionar el estado del trayecto.
-- Interfaz grafica de escritorio en desarrollo con CustomTkinter.
+| Nivel | Estado | Resultado |
+| --- | --- | --- |
+| Esencial | ✅ Completado | CLI funcional para gestionar trayectos. |
+| Medio | ✅ Completado | Logs, tests, historico y tarifas configurables. |
+| Avanzado | ✅ Completado | OOP, autenticacion y GUI de escritorio. |
+| Experto | ⬜ Pendiente | Base de datos, Docker y version web. |
 
 ## Seguimiento Del Briefing
-
-Esta tabla resume los requisitos del briefing y el estado de avance del proyecto.
 
 ### ![Nivel Esencial](https://img.shields.io/badge/Nivel%20Esencial-Completado-2ea44f)
 
 | Check | Requisito | Estado |
 | --- | --- | --- |
 | ✅ | Desarrollar un programa CLI en Python. | Completado |
-| ✅ | Mostrar bienvenida y explicacion de funcionamiento al iniciar. | Completado |
+| ✅ | Mostrar bienvenida y explicar el funcionamiento al iniciar. | Completado |
 | ✅ | Iniciar un trayecto. | Completado |
 | ✅ | Calcular tarifa con el taxi parado. | Completado |
 | ✅ | Calcular tarifa con el taxi en movimiento. | Completado |
@@ -40,18 +39,18 @@ Esta tabla resume los requisitos del briefing y el estado de avance del proyecto
 
 | Check | Requisito | Estado |
 | --- | --- | --- |
-| ✅ | Implementar un sistema de logs para trazabilidad. | Completado |
+| ✅ | Implementar logs para trazabilidad. | Completado |
 | ✅ | Agregar tests unitarios. | Completado |
 | ✅ | Crear un registro historico de trayectos en texto plano. | Completado |
-| ✅ | Permitir la configuracion de precios. | Completado |
+| ✅ | Permitir la configuracion de precios para adaptarse a la demanda. | Completado |
 
-### ![Nivel Avanzado](https://img.shields.io/badge/Nivel%20Avanzado-En%20curso-0969da)
+### ![Nivel Avanzado](https://img.shields.io/badge/Nivel%20Avanzado-Completado-0969da)
 
 | Check | Requisito | Estado |
 | --- | --- | --- |
 | ✅ | Refactorizar el codigo con programacion orientada a objetos. | Completado |
 | ✅ | Implementar autenticacion con contrasena. | Completado |
-| ⏳ | Desarrollar una interfaz grafica de usuario. | En desarrollo |
+| ✅ | Desarrollar una interfaz grafica de usuario. | Completado |
 
 ### ![Nivel Experto](https://img.shields.io/badge/Nivel%20Experto-Pendiente-8250df)
 
@@ -61,43 +60,41 @@ Esta tabla resume los requisitos del briefing y el estado de avance del proyecto
 | ⬜ | Dockerizar la aplicacion. | Pendiente |
 | ⬜ | Desarrollar una version web accesible desde navegador. | Pendiente |
 
-## Funcionalidades
+## Funcionalidades Principales
 
-### Nivel Esencial
-
-- Interfaz de linea de comandos.
-- Mensaje inicial de bienvenida y explicacion de uso.
-- Inicio de trayecto.
-- Cambio de estado entre parado y movimiento.
-- Finalizacion de trayecto.
-- Calculo del importe total.
-- Posibilidad de iniciar nuevos trayectos sin cerrar el programa.
-
-### Nivel Medio
-
-- Sistema de logs con `logging`.
-- Tests unitarios con `pytest`.
-- Registro historico de trayectos en archivo de texto plano.
-- Configuracion de tarifas mediante `config.json`.
-
-### Nivel Avanzado En Curso
-
-- Refactorizacion inicial con programacion orientada a objetos.
-- Clase `Taximeter` para centralizar el estado del trayecto.
-- Metodos principales:
-  - `start_trip`
-  - `change_state`
-  - `finish_trip`
-- Autenticacion basica con contrasena configurada en `config.json`.
+- Calculo de tarifa por tiempo parado y tiempo en movimiento.
+- CLI interactivo con comandos `start`, `stop`, `move`, `finish` y `exit`.
 - Interfaz grafica de escritorio con CustomTkinter.
-- Edicion de tarifas desde la interfaz grafica antes de iniciar un trayecto.
-- Indicador visual de estado: gris sin trayecto, ambar en parado y verde parpadeante en movimiento.
+- Autenticacion basica por contrasena.
+- Configuracion de tarifas desde `config.json`.
+- Edicion de tarifas desde la GUI antes de iniciar un trayecto.
+- Bloqueo de cambio de tarifas durante un trayecto activo.
+- Logs tecnicos con `logging`.
+- Historico local de trayectos finalizados.
+- Tests unitarios con `pytest`.
+- Clase `Taximeter` para centralizar el estado y la logica del trayecto.
 
-## Estructura Principal
+## Tecnologias Y Herramientas
+
+| Tecnologia | Uso |
+| --- | --- |
+| Python 3.11 | Lenguaje principal del proyecto. |
+| CustomTkinter | Interfaz grafica de escritorio. |
+| Pytest | Tests unitarios. |
+| Logging | Trazabilidad tecnica. |
+| JSON | Configuracion de tarifas y contrasena. |
+| Git | Control de versiones. |
+| GitHub | Repositorio remoto, ramas y Pull Requests. |
+| Jira | Gestion del proyecto mediante tablero Kanban. |
+| Entorno virtual `.venv` | Aislamiento de dependencias. |
+
+## Estructura Del Proyecto
 
 ```text
 .
+|-- .gitignore
 |-- config.json
+|-- gui.py
 |-- README.md
 |-- requirements.txt
 |-- taximetro.py
@@ -107,30 +104,15 @@ Esta tabla resume los requisitos del briefing y el estado de avance del proyecto
     `-- test_taximetro.py
 ```
 
-## Requisitos
+Archivos generados localmente y no versionados:
 
-| Requisito | Uso |
+| Archivo | Uso |
 | --- | --- |
-| Python 3.11 | Ejecutar la aplicacion y los tests. |
-| Git | Control de versiones y trabajo con ramas. |
-| GitHub | Repositorio remoto y Pull Requests. |
-| Entorno virtual `.venv` | Aislar dependencias del proyecto. |
-
-## Dependencias
-
-Las dependencias del proyecto estan declaradas en `requirements.txt`.
-
-Dependencia principal:
-
-| Paquete | Uso |
-| --- | --- |
-| `pytest` | Ejecucion de tests unitarios. |
-
-Instalacion de dependencias:
-
-```bash
-python -m pip install -r requirements.txt
-```
+| `taximetro.log` | Logs tecnicos de la aplicacion. |
+| `trip_history.txt` | Historico de trayectos finalizados. |
+| `.venv/` | Entorno virtual local. |
+| `.pytest_cache/` | Cache local de pytest. |
+| `__pycache__/` | Cache local de Python. |
 
 ## Instalacion Desde Cero
 
@@ -159,22 +141,22 @@ Instalar dependencias:
 python -m pip install -r requirements.txt
 ```
 
-Comprobar que el entorno esta activo:
+Comprobar la instalacion:
 
 ```bash
 python --version
 python -m pytest
 ```
 
-Resultado esperado de tests:
+Resultado esperado:
 
 ```text
-12 tests pasados
+12 passed
 ```
 
 ## Configuracion
 
-El archivo `config.json` centraliza valores configurables de la aplicacion:
+El archivo `config.json` centraliza valores configurables:
 
 ```json
 {
@@ -188,77 +170,55 @@ El archivo `config.json` centraliza valores configurables de la aplicacion:
 | --- | --- |
 | `stopped_rate` | Tarifa por segundo cuando el taxi esta parado. |
 | `moving_rate` | Tarifa por segundo cuando el taxi esta en movimiento. |
-| `password` | Contrasena basica para acceder al programa. |
+| `password` | Contrasena basica de acceso. |
 
-Tarifas actuales:
+Tarifas por defecto:
 
-- Taxi parado: 0.02 euros/segundo.
-- Taxi en movimiento: 0.05 euros/segundo.
+- Taxi parado: `0.02` euros/segundo.
+- Taxi en movimiento: `0.05` euros/segundo.
 
-Nota tecnica: la contrasena esta en texto plano porque se trata de una autenticacion basica de nivel academico. Una mejora futura seria almacenarla con hash.
+La GUI permite modificar las tarifas antes de iniciar un trayecto. Si no se modifican, se usan las tarifas definidas en `config.json`.
 
-## Ejecucion Del Programa
+Nota tecnica: la contrasena se guarda en texto plano porque se trata de una autenticacion basica para un MVP academico. Como mejora futura se plantea crear un sistema de gestion de usuarios.
 
-El proyecto puede ejecutarse de dos formas: mediante CLI o mediante interfaz grafica de escritorio.
+## Ejecucion
 
-Ejecutar la aplicacion CLI:
+El proyecto puede ejecutarse de dos formas.
 
-```bash
-python taximetro.py
-```
-
-Ejecutar la aplicacion grafica:
+### Interfaz Grafica
 
 ```bash
 python gui.py
 ```
 
-Al arrancar, el programa solicita una contrasena:
+Flujo de uso:
 
-```text
-Introduce la contrasena:
+1. Introducir la contrasena.
+2. Revisar las tarifas cargadas.
+3. Modificar tarifas si es necesario.
+4. Pulsar `Aplicar tarifas`.
+5. Pulsar `Iniciar`.
+6. Cambiar entre `Parado` y `Movimiento`.
+7. Pulsar `Finalizar`.
+8. Revisar el importe final y el resumen del ultimo trayecto.
+
+Comportamiento de la GUI:
+
+- Al iniciar un trayecto, el taxi empieza en estado parado.
+- La luz de estado aparece en gris cuando no hay trayecto activo.
+- La luz cambia a ambar cuando el taxi esta parado.
+- La luz parpadea en verde cuando el taxi esta en movimiento.
+- La luz queda en verde fijo al finalizar.
+- El importe se actualiza en tiempo real.
+- El total final se muestra destacado.
+- El trayecto finalizado se guarda en `trip_history.txt`.
+- Las acciones principales se registran en `taximetro.log`.
+
+### Linea De Comandos
+
+```bash
+python taximetro.py
 ```
-
-Contrasena configurada por defecto:
-
-```text
-admin123
-```
-
-Si la contrasena es correcta, el programa muestra el menu principal. Si se introducen tres contrasenas incorrectas, el acceso se deniega y el programa finaliza.
-
-## Funcionamiento De La GUI
-
-La interfaz grafica permite usar el taximetro desde una ventana de escritorio.
-
-Flujo habitual de uso:
-
-1. Ejecutar `python gui.py`.
-2. Introducir la contrasena configurada.
-3. Revisar las tarifas cargadas por defecto.
-4. Cambiar las tarifas si se necesita adaptar el precio a la demanda actual.
-5. Pulsar `Aplicar tarifas`.
-6. Pulsar `Iniciar`.
-7. Cambiar entre `Parado` y `Movimiento` durante el trayecto.
-8. Pulsar `Finalizar` para cerrar el trayecto.
-9. Revisar el importe final destacado y el resumen del ultimo trayecto.
-
-Si no se modifican las tarifas desde la interfaz, se utilizan las tarifas definidas en `config.json`. No se permite cambiar tarifas mientras hay un trayecto activo, para evitar calculos inconsistentes.
-
-La GUI incluye una luz de estado para reforzar la lectura visual del trayecto: gris cuando no hay trayecto activo, ambar cuando el taxi esta parado y verde con parpadeo sutil cuando esta en movimiento.
-
-## Funcionamiento Del CLI
-
-Flujo habitual de uso:
-
-1. Ejecutar `python taximetro.py`.
-2. Introducir la contrasena.
-3. Iniciar un trayecto con `start`.
-4. Cambiar a movimiento con `move`.
-5. Cambiar a parado con `stop` cuando corresponda.
-6. Finalizar el trayecto con `finish`.
-7. Revisar el resumen mostrado.
-8. Iniciar otro trayecto o salir con `exit`.
 
 Comandos disponibles:
 
@@ -270,7 +230,7 @@ Comandos disponibles:
 | `finish` | Finaliza el trayecto y muestra el importe total. | Si |
 | `exit` | Cierra el programa. | No |
 
-Ejemplo de ejecucion:
+Ejemplo de uso:
 
 ```text
 Introduce la contrasena: admin123
@@ -299,7 +259,7 @@ Saliendo del programa. Hasta pronto.
 
 ## Calculo De Tarifa
 
-La tarifa se calcula con la funcion `calculate_fare`:
+La tarifa se calcula mediante la funcion `calculate_fare`:
 
 ```text
 importe = segundos_parado * tarifa_parado + segundos_movimiento * tarifa_movimiento
@@ -312,6 +272,8 @@ Ejemplo:
 5 segundos en movimiento * 0.05 = 0.25 euros
 total = 0.45 euros
 ```
+
+El tiempo se mide en tiempo real, por lo que pueden aparecer decimales en los segundos registrados. El importe se muestra redondeado a dos decimales.
 
 ## Tests
 
@@ -339,32 +301,21 @@ Resultado actual:
 12 tests pasados
 ```
 
-## Archivos Generados Localmente
+## Flujo De Trabajo Con Git
 
-Durante la ejecucion se pueden generar archivos locales que no se versionan en Git:
+El proyecto se ha desarrollado siguiendo un flujo basado en ramas:
 
-| Archivo | Uso |
-| --- | --- |
-| `taximetro.log` | Trazabilidad tecnica de la aplicacion. |
-| `trip_history.txt` | Historico funcional de trayectos finalizados. |
-
-Ambos archivos estan ignorados en `.gitignore`.
-
-## Flujo De Trabajo
-
-El proyecto se desarrolla con un flujo basado en ramas:
-
-1. Partir de `main` limpio y actualizado.
+1. Mantener `main` como rama estable.
 2. Crear una rama para cada funcionalidad.
-3. Implementar cambios pequenos y verificables.
-4. Ejecutar pruebas.
-5. Crear commits descriptivos.
+3. Trabajar en cambios pequenos y verificables.
+4. Ejecutar validaciones antes de confirmar cambios.
+5. Crear commits descriptivos siguiendo Conventional Commits.
 6. Subir la rama a GitHub.
 7. Abrir Pull Request.
 8. Fusionar en `main`.
-9. Actualizar `main` local.
+9. Actualizar `main` local con `git pull`.
 
-Ejemplos de ramas utilizadas:
+Ramas utilizadas:
 
 - `feature/nivel-esencial`
 - `feature/logs`
@@ -374,6 +325,18 @@ Ejemplos de ramas utilizadas:
 - `feature/oop-taximeter`
 - `feature/autenticacion-basica`
 - `feature/gui-customtkinter`
+- `docs/estilo-profesional`
+- `docs/readme-guia-uso`
+
+Comprobaciones habituales:
+
+```bash
+git status
+python -m py_compile taximetro.py
+python -m py_compile gui.py
+python -m pytest
+git diff --check
+```
 
 ## Gestion Del Proyecto
 
@@ -385,7 +348,8 @@ Estado actual:
 
 - Nivel esencial completado.
 - Nivel medio completado.
-- Nivel avanzado iniciado.
+- Nivel avanzado completado.
+- Nivel experto pendiente.
 
 ## Documentacion Del Proceso
 
@@ -393,9 +357,11 @@ El registro de decisiones, avances, problemas y validaciones se mantiene en:
 
 [docs/diario-desarrollo.md](docs/diario-desarrollo.md)
 
-## Proximos Pasos
+## Roadmap
 
-- Validar y cerrar la interfaz grafica.
-- Evolucionar el historico hacia base de datos SQLite.
+Proximos pasos previstos:
+
+- Integrar una base de datos SQLite para almacenar trayectos.
+- Dockerizar la aplicacion.
+- Desarrollar una version web accesible desde navegador.
 - Valorar un sistema de gestion de usuarios para sustituir la contrasena unica del MVP.
-- Preparar Docker y version web para el nivel experto.
