@@ -1,4 +1,4 @@
-from taximetro import Taximeter, calculate_fare
+from taximetro import Taximeter, calculate_fare, load_password
 
 def test_calculate_fare_with_stopped_and_moving_time():
     # Verifica la tarifa cuando hay tiempo parado y tiempo en movimiento.
@@ -82,3 +82,9 @@ def test_taximeter_finish_trip_returns_summary():
     assert "total_fare" in summary
     assert taximeter.trip_active is False
     assert taximeter.state is None
+
+def test_load_password_returns_configured_password():
+    # Verifica que la contrasena se carga desde el archivo de configuracion
+    result = load_password()
+
+    assert result == "admin123"
