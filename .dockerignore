@@ -1,0 +1,11 @@
+.venv
+__pycache__
+.pytest_cache
+*.pyc
+*.log
+*.db
+trip_history.txt
+.git
+.gitignore
+docs
+README.md
