@@ -415,3 +415,137 @@ Mejoras identificadas para fases futuras:
 - Fusionar la rama en `main`.
 - Actualizar `main` local con `git pull origin main`.
 - Iniciar el nivel experto con base de datos SQLite.
+
+## Dia 4 - 12 de mayo de 2026
+
+### Objetivos
+
+- Iniciar el nivel experto del briefing.
+- Integrar una base de datos SQLite para almacenar trayectos finalizados.
+- Dockerizar la ejecucion del CLI.
+- Mantener la separacion entre ejecucion local, GUI de escritorio y futura version web.
+- Revisar la documentacion para reflejar el estado real del proyecto.
+
+### Base De Datos SQLite
+
+Trabajo realizado:
+
+- Se creo la rama `feature/sqlite-database`.
+- Se creo el modulo `database.py`.
+- Se definio la base de datos local `taximetro.db`.
+- Se creo la tabla `trips`.
+- Se incorporo la funcion `init_database`.
+- Se incorporo la funcion `save_trip_to_database`.
+- Se incorporo la funcion `get_recent_trips`.
+- Se integro el guardado en SQLite desde el CLI.
+- Se integro el guardado en SQLite desde la GUI.
+- Se mantuvo el historico en texto plano como salida complementaria.
+- Se anadio `*.db` al `.gitignore`.
+- Se anadieron tests unitarios para validar la creacion de la tabla y la insercion de trayectos.
+
+Validaciones realizadas:
+
+```bash
+python -m py_compile database.py
+python -m py_compile taximetro.py
+python -m py_compile gui.py
+python -m pytest
+python taximetro.py
+```
+
+Resultado:
+
+```text
+14 tests pasados
+```
+
+Tambien se valido manualmente la lectura de registros desde SQLite:
+
+```bash
+python -c "import sqlite3; conn=sqlite3.connect('taximetro.db'); print(conn.execute('SELECT id, finished_at, stopped_time, moving_time, stopped_rate, moving_rate, total_fare FROM trips ORDER BY id DESC LIMIT 3').fetchall()); conn.close()"
+```
+
+Decision:
+
+- Usar SQLite como primera base de datos porque es suficiente para el alcance del MVP, no requiere servidor externo y permite demostrar persistencia estructurada.
+
+### Dockerizacion Del CLI
+
+Trabajo realizado:
+
+- Se creo la rama `feature/docker-CLI`.
+- Se creo el archivo `Dockerfile`.
+- Se creo el archivo `.dockerignore`.
+- Se construyo la imagen `taximetro-cli`.
+- Se valido la ejecucion interactiva del CLI dentro del contenedor.
+- Se configuro `TAXIMETER_DATA_DIR=/app/data`.
+- Se adapto la ruta de la base de datos para poder guardar datos dentro de `/app/data`.
+- Se adapto la ruta del historico de trayectos para poder guardarlo dentro de `/app/data`.
+- Se corrigio la configuracion de logs para usar la ruta `LOG_FILE` y respetar `TAXIMETER_DATA_DIR`.
+- Se valido un volumen Docker llamado `taximetro_data`.
+- Se comprobo que SQLite persiste datos dentro del volumen.
+
+Validaciones realizadas:
+
+```bash
+python -m py_compile database.py
+python -m py_compile taximetro.py
+python -m pytest
+docker build -t taximetro-cli .
+winpty docker run --rm -it taximetro-cli
+docker run --rm -it -v taximetro_data:/app/data taximetro-cli
+docker volume ls
+```
+
+Consulta de validacion sobre el volumen:
+
+```powershell
+docker run --rm -v taximetro_data:/app/data taximetro-cli python -c "import sqlite3; conn=sqlite3.connect('/app/data/taximetro.db'); print(conn.execute('SELECT id, finished_at, total_fare FROM trips ORDER BY id DESC LIMIT 3').fetchall()); conn.close()"
+```
+
+Decisiones:
+
+- Dockerizar el CLI como demostracion de portabilidad y ejecucion aislada.
+- Mantener la GUI de escritorio como ejecucion local con CustomTkinter.
+- Documentar que Docker Desktop no es la forma recomendada de arrancar este CLI, porque la aplicacion necesita una terminal interactiva conectada a `input()`.
+- Recomendar PowerShell para las pruebas con volumen en Windows.
+- Reservar una estrategia Docker especifica para la futura version web con Flask.
+
+### Documentacion
+
+Trabajo realizado:
+
+- Se actualizo el `README.md`.
+- Se corrigio el estado del nivel experto.
+- Se documento SQLite.
+- Se documento Docker.
+- Se documentaron los comandos de build y ejecucion.
+- Se documento la ejecucion con volumen persistente.
+- Se documento la diferencia entre CLI dockerizado, GUI local y futura web.
+- Se recupero una presentacion visual por niveles mediante badges de estado compatibles con GitHub.
+
+### Problemas Y Aprendizajes
+
+- Git Bash en Windows puede transformar rutas Linux como `/app/data` al usar volumenes Docker.
+- Para el CLI interactivo en Git Bash fue necesario usar `winpty`.
+- Para validar volumenes Docker en Windows resulto mas estable usar PowerShell.
+- El boton `Run` de Docker Desktop no es adecuado para este caso porque no conecta correctamente la entrada interactiva que necesita `input()`.
+- Se detecto una incoherencia en la configuracion de logs: aunque existia `LOG_FILE`, `logging.basicConfig` seguia apuntando a `taximetro.log` de forma literal. Se corrigio para respetar `TAXIMETER_DATA_DIR`.
+
+### Estado Al Cierre
+
+- Nivel esencial completado.
+- Nivel medio completado.
+- Nivel avanzado completado.
+- SQLite completado dentro del nivel experto.
+- Docker CLI completado dentro del nivel experto.
+- Suite de tests pasando con 14 tests.
+- Queda pendiente la version web accesible desde navegador.
+
+### Siguiente Paso
+
+- Disenar en Figma la experiencia de la version web.
+- Implementar la aplicacion web con Flask.
+- Reutilizar la logica existente del taximetro.
+- Mostrar historico desde SQLite.
+- Preparar las presentaciones tecnica y no tecnica.
