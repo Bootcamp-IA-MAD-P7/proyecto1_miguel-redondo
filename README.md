@@ -18,49 +18,49 @@ El proyecto cubre actualmente los niveles esencial, medio y avanzado del briefin
 
 | Nivel | Estado | Resultado |
 | --- | --- | --- |
-| Esencial | Completado | CLI funcional para gestionar trayectos. |
-| Medio | Completado | Logs, tests, historico y tarifas configurables. |
-| Avanzado | Completado | OOP, autenticacion y GUI de escritorio. |
-| Experto | En desarrollo | SQLite y Docker CLI completados. Version web pendiente. |
+| Esencial | ![Completado](https://img.shields.io/badge/Completado-2ea44f) | CLI funcional para gestionar trayectos. |
+| Medio | ![Completado](https://img.shields.io/badge/Completado-d29922) | Logs, tests, historico y tarifas configurables. |
+| Avanzado | ![Completado](https://img.shields.io/badge/Completado-0969da) | OOP, autenticacion y GUI de escritorio. |
+| Experto | ![En desarrollo](https://img.shields.io/badge/En%20desarrollo-8250df) | SQLite y Docker CLI completados. Version web pendiente. |
 
 ## Seguimiento Del Briefing
 
-### Nivel Esencial
+### ![Nivel Esencial](https://img.shields.io/badge/Nivel%20Esencial-Completado-2ea44f)
 
 | Check | Requisito | Estado |
 | --- | --- | --- |
-| OK | Desarrollar un programa CLI en Python. | Completado |
-| OK | Mostrar bienvenida y explicar el funcionamiento al iniciar. | Completado |
-| OK | Iniciar un trayecto. | Completado |
-| OK | Calcular tarifa con el taxi parado. | Completado |
-| OK | Calcular tarifa con el taxi en movimiento. | Completado |
-| OK | Finalizar un trayecto y mostrar el total en euros. | Completado |
-| OK | Permitir iniciar un nuevo trayecto sin cerrar el programa. | Completado |
+| OK | Desarrollar un programa CLI en Python. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Mostrar bienvenida y explicar el funcionamiento al iniciar. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Iniciar un trayecto. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Calcular tarifa con el taxi parado. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Calcular tarifa con el taxi en movimiento. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Finalizar un trayecto y mostrar el total en euros. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Permitir iniciar un nuevo trayecto sin cerrar el programa. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
 
-### Nivel Medio
-
-| Check | Requisito | Estado |
-| --- | --- | --- |
-| OK | Implementar logs para trazabilidad. | Completado |
-| OK | Agregar tests unitarios. | Completado |
-| OK | Crear un registro historico de trayectos en texto plano. | Completado |
-| OK | Permitir la configuracion de precios para adaptarse a la demanda. | Completado |
-
-### Nivel Avanzado
+### ![Nivel Medio](https://img.shields.io/badge/Nivel%20Medio-Completado-d29922)
 
 | Check | Requisito | Estado |
 | --- | --- | --- |
-| OK | Refactorizar el codigo con programacion orientada a objetos. | Completado |
-| OK | Implementar autenticacion con contrasena. | Completado |
-| OK | Desarrollar una interfaz grafica de usuario. | Completado |
+| OK | Implementar logs para trazabilidad. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
+| OK | Agregar tests unitarios. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
+| OK | Crear un registro historico de trayectos en texto plano. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
+| OK | Permitir la configuracion de precios para adaptarse a la demanda. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
 
-### Nivel Experto
+### ![Nivel Avanzado](https://img.shields.io/badge/Nivel%20Avanzado-Completado-0969da)
 
 | Check | Requisito | Estado |
 | --- | --- | --- |
-| OK | Integrar una base de datos para almacenar trayectos. | Completado con SQLite |
-| OK | Dockerizar la aplicacion. | Completado para CLI |
-| Pendiente | Desarrollar una version web accesible desde navegador. | Pendiente |
+| OK | Refactorizar el codigo con programacion orientada a objetos. | ![Completado](https://img.shields.io/badge/Completado-0969da) |
+| OK | Implementar autenticacion con contrasena. | ![Completado](https://img.shields.io/badge/Completado-0969da) |
+| OK | Desarrollar una interfaz grafica de usuario. | ![Completado](https://img.shields.io/badge/Completado-0969da) |
+
+### ![Nivel Experto](https://img.shields.io/badge/Nivel%20Experto-En%20desarrollo-8250df)
+
+| Check | Requisito | Estado |
+| --- | --- | --- |
+| OK | Integrar una base de datos para almacenar trayectos. | ![Completado](https://img.shields.io/badge/SQLite-Completado-2ea44f) |
+| OK | Dockerizar la aplicacion. | ![Completado](https://img.shields.io/badge/Docker%20CLI-Completado-2ea44f) |
+| Pendiente | Desarrollar una version web accesible desde navegador. | ![Pendiente](https://img.shields.io/badge/Pendiente-Web%20Flask-8250df) |
 
 ## Funcionalidades Principales
 
@@ -425,7 +425,7 @@ Ramas utilizadas:
 - `feature/autenticacion-basica`
 - `feature/gui-customtkinter`
 - `feature/sqlite-database`
-- `feature/docker-cli`
+- `feature/docker-CLI`
 - `docs/estilo-profesional`
 - `docs/readme-guia-uso`
 
