@@ -1,16 +1,21 @@
+import os
 import sqlite3
 from datetime import datetime
 
-DATABASE_FILE = "taximetro.db"
+DATA_DIR = os.getenv("TAXIMETER_DATA_DIR", ".")
+DATABASE_FILE = os.path.join(DATA_DIR, "taximetro.db")
 
 def init_database():
     """
     Crea la base de datos y la tabla de trayectos si no existen.
     """
+
+    os.makedirs(DATA_DIR, exist_ok=True)
+
     with sqlite3.connect(DATABASE_FILE) as connection:
         cursor = connection.cursor()
         cursor.execute(
-             """
+            """
             CREATE TABLE IF NOT EXISTS trips (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 finished_at TEXT NOT NULL,

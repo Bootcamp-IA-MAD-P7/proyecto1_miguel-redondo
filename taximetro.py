@@ -1,13 +1,16 @@
 import json
 import logging
 import time
+import os
 from datetime import datetime
 from database import init_database, save_trip_to_database
 
 STOPPED_RATE = 0.02
 MOVING_RATE = 0.05
-HISTORY_FILE = "trip_history.txt"
+DATA_DIR = os.getenv("TAXIMETER_DATA_DIR", ".")
+HISTORY_FILE = os.path.join(DATA_DIR, "trip_history.txt")
 CONFIG_FILE = "config.json"
+LOG_FILE = os.path.join(DATA_DIR, "taximetro.log")
 VALID_STATES = ("stopped", "moving")
 
 def load_rates():
@@ -65,6 +68,9 @@ def authenticate_user(max_attempts=3):
     return False
 
 # Configuracion del sistema de logs
+
+os.makedirs(DATA_DIR, exist_ok=True)
+
 logging.basicConfig(
     filename="taximetro.log",
     level=logging.INFO,
