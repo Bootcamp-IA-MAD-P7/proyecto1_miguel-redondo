@@ -12,6 +12,8 @@ from taximetro import (
     save_trip_history,
 )
 
+from database import init_database, save_trip_to_database
+
 class TaximeterGUI(ctk.CTk):
     """
     Interfaz grafica inicial del taximetro.
@@ -19,7 +21,7 @@ class TaximeterGUI(ctk.CTk):
 
     def __init__(self):
         super().__init__()
-
+        init_database()
         self.title("Taximetro Digital F5")
         self.geometry("980x620")
         self.minsize(900, 560)
@@ -552,6 +554,15 @@ class TaximeterGUI(ctk.CTk):
             summary["moving_time"],
             summary["total_fare"],
         )
+
+        save_trip_to_database(
+            summary["stopped_time"],
+            summary["moving_time"],
+            self.stopped_rate,
+            self.moving_rate,
+            summary["total_fare"],
+        )
+
         logging.info(
             f"Trayecto finalizado desde GUI. Tiempo parado: {summary['stopped_time']:.1f}s, "
             f"tiempo en movimiento: {summary['moving_time']:.1f}s, "

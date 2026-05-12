@@ -1,4 +1,6 @@
 from taximetro import Taximeter, calculate_fare, load_password
+import sqlite3
+import database
 
 def test_calculate_fare_with_stopped_and_moving_time():
     # Verifica la tarifa cuando hay tiempo parado y tiempo en movimiento.
@@ -99,3 +101,40 @@ def test_load_password_returns_configured_password():
     result = load_password()
 
     assert result == "admin123"
+
+def test_init_database_creates_trip_table(tmp_path, monkeypatch):
+    test_database = tmp_path / "test.taximetro.db"
+    monkeypatch.setattr(database, "DATABASE_FILE", test_database)
+
+    database.init_database()
+
+    with sqlite3.connect(test_database) as connection:
+        cursor = connection.cursor()
+        cursor.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name='trips'"
+        )
+        table = cursor.fetchone()
+
+    assert table is not None
+
+def test_save_trip_to_database_inserts_trip(tmp_path, monkeypatch):
+    test_database = tmp_path / "test_taximetro.db"
+    monkeypatch.setattr(database, "DATABASE_FILE", test_database)
+
+    database.init_database()
+    database.save_trip_to_database(
+        stopped_time=10,
+        moving_time=20,
+        stopped_rate=0.02,
+        moving_rate=0.05,
+        total_fare=1.20,
+    )
+
+    trips = database.get_recent_trips(limit=1)
+
+    assert len(trips) == 1
+    assert trips[0][2] == 10
+    assert trips[0][3] == 20
+    assert trips[0][4] == 0.02
+    assert trips[0][5] == 0.05
+    assert trips[0][6] == 1.20
