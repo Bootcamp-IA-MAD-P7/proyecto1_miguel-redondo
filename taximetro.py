@@ -2,6 +2,7 @@ import json
 import logging
 import time
 from datetime import datetime
+from database import init_database, save_trip_to_database
 
 STOPPED_RATE = 0.02
 MOVING_RATE = 0.05
@@ -177,6 +178,7 @@ def taximeter():
     Funcion para manejar y mostrar las opciones del taximetro.
     """
     logging.info("Programa iniciado")
+    init_database()
 
     if not authenticate_user():
         logging.warning("Programa finalizado por fallo de autenticacion")
@@ -237,6 +239,13 @@ def taximeter():
             )
 
             save_trip_history(stopped_time, moving_time, total_fare)
+            save_trip_to_database(
+                stopped_time,
+                moving_time,
+                stopped_rate,
+                moving_rate,
+                total_fare,
+            )
 
             print(f"\n--- Resumen del trayecto ---")
             print(f"Tiempo parado: {stopped_time:.1f} segundos")
