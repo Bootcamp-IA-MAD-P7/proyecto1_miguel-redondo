@@ -74,7 +74,8 @@ form {
     margin-top: 28px;
 }
 
-.meter-actions form {
+.meter-actions form,
+.compact-form {
     margin: 0;
 }
 
@@ -94,6 +95,12 @@ input {
     font-size: 16px;
 }
 
+input:disabled,
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
 button,
 .topbar a {
     border: 1px solid rgba(47, 255, 96, 0.55);
@@ -109,6 +116,12 @@ button,
 button:hover,
 .topbar a:hover {
     background: rgba(47, 255, 96, 0.16);
+}
+
+.secondary {
+    border-color: rgba(132, 145, 163, 0.5);
+    color: var(--text);
+    background: rgba(132, 145, 163, 0.08);
 }
 
 .error {
@@ -144,6 +157,25 @@ button:hover,
     grid-template-columns: minmax(0, 1.7fr) minmax(320px, 0.8fr);
     gap: 28px;
     padding: 36px 72px;
+}
+
+.notice {
+    grid-column: 1 / -1;
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-weight: 700;
+}
+
+.notice-success {
+    border: 1px solid rgba(47, 255, 96, 0.5);
+    background: rgba(47, 255, 96, 0.08);
+    color: var(--green);
+}
+
+.notice-error {
+    border: 1px solid rgba(255, 56, 56, 0.5);
+    background: rgba(255, 56, 56, 0.08);
+    color: var(--red);
 }
 
 .meter-card,
@@ -193,6 +225,51 @@ button:hover,
 .status-finalizado {
     border: 1px solid rgba(47, 255, 96, 0.6);
     color: var(--green);
+}
+
+
+.status-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-end;
+}
+
+.motion-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #6b7280;
+    box-shadow: 0 0 0 4px rgba(107, 114, 128, 0.12);
+}
+
+.motion-dot.is-idle {
+    background: #6b7280;
+    box-shadow: 0 0 0 4px rgba(107, 114, 128, 0.14);
+}
+
+.motion-dot.is-stopped {
+    background: #f59e0b;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.75);
+}
+
+.motion-dot.is-moving {
+    background: #22c55e;
+    box-shadow: 0 0 14px rgba(34, 197, 94, 0.8);
+    animation: pulseMotion 1.2s ease-in-out infinite;
+}
+
+.motion-label {
+    color: #9ca3af;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 
 .meter-display {
@@ -249,7 +326,7 @@ button:hover,
 
 .meter-actions {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 14px;
     margin-top: 44px;
 }
@@ -292,9 +369,20 @@ button:hover,
     color: var(--muted);
 }
 
+.rates-form {
+    margin-top: 18px;
+}
+
 .data-card {
-    grid-column: 1 / -1;
     padding: 28px;
+}
+
+.trips-card {
+    grid-column: 1 / -1;
+}
+
+.logs-card {
+    grid-column: 1 / -1;
 }
 
 table {
@@ -325,6 +413,22 @@ td:last-child {
     font-weight: 700;
 }
 
+.logs-list {
+    display: grid;
+    gap: 10px;
+}
+
+.logs-list p {
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--panel-soft);
+    color: var(--muted);
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    padding: 12px 14px;
+}
+
 @media (max-width: 900px) {
     .topbar {
         height: auto;
@@ -346,5 +450,17 @@ td:last-child {
 
     .meter-display strong {
         font-size: 64px;
+    }
+}
+
+@keyframes pulseMotion {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.35);
+        opacity: 1;
     }
 }

@@ -2,6 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    {% if trip_state.trip_active %}
+        <meta http-equiv="refresh" content="1">
+    {% endif %}
     <title>Dashboard | Taximetro Digital F5</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
@@ -15,10 +18,24 @@
     </header>
 
     <main class="dashboard">
+        {% if message %}
+            <section class="notice notice-success">{{ message }}</section>
+        {% endif %}
+
+        {% if error %}
+            <section class="notice notice-error">{{ error }}</section>
+        {% endif %}
+
         <section class="meter-card">
             <div class="meter-header">
                 <span>TAXIMETRO WEB</span>
-                <span class="status status-{{ status_label|lower }}">{{ status_label }}</span>
+                <div class="status-group">
+                    <span class="motion-dot {{ motion_class }}"></span>
+                    <div class="status-copy">
+                        <span class="status status-{{ status_label|lower }}">{{ status_label }}</span>
+                        <span class="motion-label">{{ motion_label }}</span>
+                    </div>
+                </div>
             </div>
 
             <div class="meter-display">
@@ -49,6 +66,10 @@
             </div>
 
             <div class="meter-actions">
+                <form method="post" action="{{ url_for('new_trip') }}">
+                    <button type="submit" class="secondary">Nuevo viaje</button>
+                </form>
+
                 <form method="post" action="{{ url_for('start_trip') }}">
                     <button type="submit">Iniciar</button>
                 </form>
@@ -69,13 +90,25 @@
 
         <aside class="side-card">
             <h2>Tarifas</h2>
-            <p>Parado: {{ stopped_rate }} euros/s</p>
-            <p>Movimiento: {{ moving_rate }} euros/s</p>
-            <p class="muted">Las tarifas se cargan desde config.json para esta version web inicial.</p>
+            <form method="post" action="{{ url_for('update_rates') }}" class="rates-form">
+                <label for="stopped_rate">Parado euros/s</label>
+                <input id="stopped_rate" name="stopped_rate" value="{{ stopped_rate }}" {% if trip_state.trip_active %}disabled{% endif %}>
+
+                <label for="moving_rate">Movimiento euros/s</label>
+                <input id="moving_rate" name="moving_rate" value="{{ moving_rate }}" {% if trip_state.trip_active %}disabled{% endif %}>
+
+                <button type="submit" {% if trip_state.trip_active %}disabled{% endif %}>Aplicar tarifas</button>
+            </form>
+
+            <form method="post" action="{{ url_for('reset_rates') }}" class="compact-form">
+                <button type="submit" class="secondary" {% if trip_state.trip_active %}disabled{% endif %}>Restaurar defecto</button>
+            </form>
+
+            <p class="muted">Las tarifas se pueden modificar antes de iniciar un trayecto. Durante un trayecto activo quedan bloqueadas.</p>
         </aside>
 
-        <section class="data-card">
-            <h2>Viajes registrados</h2>
+        <section class="data-card trips-card">
+            <h2>Viajes registrados en SQLite</h2>
             <table>
                 <thead>
                     <tr>
@@ -83,6 +116,8 @@
                         <th>Fecha</th>
                         <th>Parado</th>
                         <th>Movimiento</th>
+                        <th>Tarifa parado</th>
+                        <th>Tarifa movimiento</th>
                         <th>Total</th>
                     </tr>
                 </thead>
@@ -93,15 +128,28 @@
                             <td>{{ trip[1] }}</td>
                             <td>{{ "%.1f"|format(trip[2]) }}s</td>
                             <td>{{ "%.1f"|format(trip[3]) }}s</td>
+                            <td>{{ "%.2f"|format(trip[4]) }}</td>
+                            <td>{{ "%.2f"|format(trip[5]) }}</td>
                             <td>{{ "%.2f"|format(trip[6]) }} EUR</td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="5">Todavia no hay viajes registrados.</td>
+                            <td colspan="7">Todavia no hay viajes registrados.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
+        </section>
+
+        <section class="data-card logs-card">
+            <h2>Logs tecnicos recientes</h2>
+            <div class="logs-list">
+                {% for log in logs %}
+                    <p>{{ log }}</p>
+                {% else %}
+                    <p>Todavia no hay logs disponibles.</p>
+                {% endfor %}
+            </div>
         </section>
     </main>
 </body>
