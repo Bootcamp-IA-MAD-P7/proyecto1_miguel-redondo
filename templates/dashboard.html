@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | Taximetro Digital F5</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="app-body">
+    <header class="topbar">
+        <div>
+            <h1>Taximetro Digital F5</h1>
+            <p>Operacion web, SQLite y trazabilidad tecnica</p>
+        </div>
+        <a href="{{ url_for('logout') }}">Cerrar sesion</a>
+    </header>
+
+    <main class="dashboard">
+        <section class="meter-card">
+            <div class="meter-header">
+                <span>TAXIMETRO WEB</span>
+                <span class="status status-{{ status_label|lower }}">{{ status_label }}</span>
+            </div>
+
+            <div class="meter-display">
+                <p>TOTAL</p>
+                <strong>{{ "%.2f"|format(total_fare) }}</strong>
+                <span>EUR</span>
+            </div>
+
+            <div class="meter-summary">
+                <article>
+                    <span>Tiempo parado</span>
+                    <strong>{{ "%.1f"|format(stopped_time) }}s</strong>
+                </article>
+                <article>
+                    <span>Tiempo movimiento</span>
+                    <strong>{{ "%.1f"|format(moving_time) }}s</strong>
+                </article>
+                <article>
+                    <span>Ultimo total</span>
+                    <strong>
+                        {% if trip_state.last_total is not none %}
+                            {{ "%.2f"|format(trip_state.last_total) }} EUR
+                        {% else %}
+                            Pendiente
+                        {% endif %}
+                    </strong>
+                </article>
+            </div>
+
+            <div class="meter-actions">
+                <form method="post" action="{{ url_for('start_trip') }}">
+                    <button type="submit">Iniciar</button>
+                </form>
+
+                <form method="post" action="{{ url_for('stop_trip') }}">
+                    <button type="submit" class="button-stopped">Parado</button>
+                </form>
+
+                <form method="post" action="{{ url_for('move_trip') }}">
+                    <button type="submit" class="button-moving">Movimiento</button>
+                </form>
+
+                <form method="post" action="{{ url_for('finish_trip') }}">
+                    <button type="submit" class="danger">Finalizar</button>
+                </form>
+            </div>
+        </section>
+
+        <aside class="side-card">
+            <h2>Tarifas</h2>
+            <p>Parado: {{ stopped_rate }} euros/s</p>
+            <p>Movimiento: {{ moving_rate }} euros/s</p>
+            <p class="muted">Las tarifas se cargan desde config.json para esta version web inicial.</p>
+        </aside>
+
+        <section class="data-card">
+            <h2>Viajes registrados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Parado</th>
+                        <th>Movimiento</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trip in trips %}
+                        <tr>
+                            <td>{{ trip[0] }}</td>
+                            <td>{{ trip[1] }}</td>
+                            <td>{{ "%.1f"|format(trip[2]) }}s</td>
+                            <td>{{ "%.1f"|format(trip[3]) }}s</td>
+                            <td>{{ "%.2f"|format(trip[6]) }} EUR</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">Todavia no hay viajes registrados.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

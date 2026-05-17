@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso | Taximetro Digital F5</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="app-body">
+    <main class="login-page">
+        <section class="login-card">
+            <p class="eyebrow">ACCESO</p>
+            <h1>Panel del taximetro</h1>
+            <p class="muted">Introduce la contrasena configurada para acceder al dashboard.</p>
+
+            <form method="post">
+                <label for="password">Contrasena</label>
+                <input id="password" name="password" type="password" required autofocus>
+
+                {% if error %}
+                    <p class="error">{{ error }}</p>
+                {% endif %}
+
+                <button type="submit">Entrar</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
