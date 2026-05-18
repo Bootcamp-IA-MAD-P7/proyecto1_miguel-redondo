@@ -52,7 +52,7 @@ El proyecto se ha desarrollado como MVP academico dentro del bootcamp de Factori
 | Demostracion GUI | Preparada | Ejecutable con `python gui.py` |
 | Demostracion Web | Preparada | Ejecutable con `python app.py` o Docker web |
 | Presentacion para publico no tecnico | Completado | https://canva.link/0mt9py82inlurfb |
-| Presentacion tecnica del codigo | Pendiente de enlazar | [pendiente] |
+| Presentacion tecnica del codigo | Completado | https://canva.link/6pd96ymwvomfh3u |
 
 ## Tecnologias utilizadas
 
