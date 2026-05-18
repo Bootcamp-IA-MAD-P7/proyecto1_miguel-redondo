@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -37,18 +37,18 @@
 
             <div class="meter-display">
                 <p>TOTAL</p>
-                <strong>{{ "%.2f"|format(total_fare) }}</strong>
+                <strong id="total-fare-display">{{ "%.2f"|format(total_fare) }}</strong>
                 <span>EUR</span>
             </div>
 
             <div class="meter-summary">
                 <article>
                     <span>Tiempo parado</span>
-                    <strong>{{ "%.1f"|format(stopped_time) }}s</strong>
+                    <strong id="stopped-time-display">{{ "%.1f"|format(stopped_time) }}s</strong>
                 </article>
                 <article>
                     <span>Tiempo movimiento</span>
-                    <strong>{{ "%.1f"|format(moving_time) }}s</strong>
+                    <strong id="moving-time-display">{{ "%.1f"|format(moving_time) }}s</strong>
                 </article>
                 <article>
                     <span>Ultimo total</span>
@@ -149,5 +149,46 @@
             </div>
         </section>
     </main>
+
+    <script>
+        const tripData = {
+            active: {{ trip_state.trip_active|tojson }},
+            state: {{ trip_state.state|tojson }},
+            stateStartTime: {{ trip_state.state_start_time|tojson }},
+            stoppedTime: {{ trip_state.stopped_time|tojson }},
+            movingTime: {{ trip_state.moving_time|tojson }},
+            stoppedRate: {{ stopped_rate|tojson }},
+            movingRate: {{ moving_rate|tojson }}
+        };
+
+        function updateMeterDisplay() {
+            let stoppedTime = Number(tripData.stoppedTime) || 0;
+            let movingTime = Number(tripData.movingTime) || 0;
+
+            if (tripData.active) {
+                const elapsed = Date.now() / 1000 - Number(tripData.stateStartTime);
+
+                if (tripData.state === "stopped") {
+                    stoppedTime += elapsed;
+                }
+
+                if (tripData.state === "moving") {
+                    movingTime += elapsed;
+                }
+            }
+
+            const totalFare = stoppedTime * Number(tripData.stoppedRate) + movingTime * Number(tripData.movingRate);
+
+            document.getElementById("stopped-time-display").textContent = `${stoppedTime.toFixed(1)}s`;
+            document.getElementById("moving-time-display").textContent = `${movingTime.toFixed(1)}s`;
+            document.getElementById("total-fare-display").textContent = totalFare.toFixed(2);
+        }
+
+        updateMeterDisplay();
+
+        if (tripData.active) {
+            setInterval(updateMeterDisplay, 250);
+        }
+    </script>
 </body>
 </html>
