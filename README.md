@@ -452,6 +452,12 @@ Ramas principales utilizadas:
 - `docs/estilo-profesional`
 - `docs/readme-guia-uso`
 
+## Diario de desarrollo
+
+El proceso de trabajo, decisiones tecnicas, problemas encontrados y validaciones realizadas se documentan en el diario de desarrollo:
+
+[Ver diario de desarrollo](docs/diario-desarrollo.md)
+
 ## UX/UI
 
 La version web se prototipo en Figma antes de implementarse. El objetivo visual fue crear una interfaz oscura, sobria y moderna, con una inspiracion ligera en taximetros clasicos.
