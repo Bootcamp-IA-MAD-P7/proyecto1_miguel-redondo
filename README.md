@@ -97,40 +97,48 @@ El proyecto se ha desarrollado como MVP academico dentro del bootcamp de Factori
 
 ### Nivel esencial
 
-| Requisito | Estado |
-| --- | --- |
-| Programa CLI en Python. | Completado |
-| Bienvenida y explicacion al iniciar. | Completado |
-| Iniciar trayecto. | Completado |
-| Calcular tarifa con taxi parado. | Completado |
-| Calcular tarifa con taxi en movimiento. | Completado |
-| Finalizar trayecto y mostrar total. | Completado |
-| Iniciar nuevo trayecto sin cerrar el programa. | Completado |
+![Nivel esencial](https://img.shields.io/badge/Nivel%20esencial-Completado-2ea44f)
+
+| Check | Requisito | Estado |
+| --- | --- | --- |
+| OK | Programa CLI en Python. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Bienvenida y explicacion al iniciar. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Iniciar trayecto. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Calcular tarifa con taxi parado. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Calcular tarifa con taxi en movimiento. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Finalizar trayecto y mostrar total. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| OK | Iniciar nuevo trayecto sin cerrar el programa. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
 
 ### Nivel medio
 
-| Requisito | Estado |
-| --- | --- |
-| Sistema de logs. | Completado |
-| Tests unitarios. | Completado |
-| Registro historico en texto plano. | Completado |
-| Configuracion de precios. | Completado |
+![Nivel medio](https://img.shields.io/badge/Nivel%20medio-Completado-d29922)
+
+| Check | Requisito | Estado |
+| --- | --- | --- |
+| OK | Sistema de logs. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
+| OK | Tests unitarios. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
+| OK | Registro historico en texto plano. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
+| OK | Configuracion de precios. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
 
 ### Nivel avanzado
 
-| Requisito | Estado |
-| --- | --- |
-| Refactorizacion con OOP. | Completado |
-| Autenticacion con contrasena. | Completado |
-| Interfaz grafica de usuario. | Completado |
+![Nivel avanzado](https://img.shields.io/badge/Nivel%20avanzado-Completado-0969da)
+
+| Check | Requisito | Estado |
+| --- | --- | --- |
+| OK | Refactorizacion con OOP. | ![Completado](https://img.shields.io/badge/Completado-0969da) |
+| OK | Autenticacion con contrasena. | ![Completado](https://img.shields.io/badge/Completado-0969da) |
+| OK | Interfaz grafica de usuario. | ![Completado](https://img.shields.io/badge/Completado-0969da) |
 
 ### Nivel experto
 
-| Requisito | Estado |
-| --- | --- |
-| Base de datos para trayectos. | Completado |
-| Dockerizacion. | Completado |
-| Version web accesible desde navegador. | Completado |
+![Nivel experto](https://img.shields.io/badge/Nivel%20experto-Completado-8250df)
+
+| Check | Requisito | Estado |
+| --- | --- | --- |
+| OK | Base de datos para trayectos. | ![SQLite](https://img.shields.io/badge/SQLite-Completado-2ea44f) |
+| OK | Dockerizacion. | ![Docker](https://img.shields.io/badge/Docker-Completado-2496ED) |
+| OK | Version web accesible desde navegador. | ![Flask](https://img.shields.io/badge/Flask-Completado-8250df) |
 
 ## Instalacion local
 
