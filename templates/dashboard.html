@@ -14,7 +14,16 @@
         <a href="{{ url_for('logout') }}">Cerrar sesion</a>
     </header>
 
-    <main class="dashboard">
+    <main
+        class="dashboard"
+        data-trip-active="{{ trip_state.trip_active|tojson }}"
+        data-trip-state="{{ trip_state.state or '' }}"
+        data-state-start-time="{{ trip_state.state_start_time }}"
+        data-stopped-time="{{ trip_state.stopped_time }}"
+        data-moving-time="{{ trip_state.moving_time }}"
+        data-stopped-rate="{{ stopped_rate }}"
+        data-moving-rate="{{ moving_rate }}"
+    >
         {% if message %}
             <section class="notice notice-success">{{ message }}</section>
         {% endif %}
@@ -151,22 +160,23 @@
     </main>
 
     <script>
+        const dashboard = document.querySelector(".dashboard");
         const tripData = {
-            active: {{ trip_state.trip_active|tojson }},
-            state: {{ trip_state.state|tojson }},
-            stateStartTime: {{ trip_state.state_start_time|tojson }},
-            stoppedTime: {{ trip_state.stopped_time|tojson }},
-            movingTime: {{ trip_state.moving_time|tojson }},
-            stoppedRate: {{ stopped_rate|tojson }},
-            movingRate: {{ moving_rate|tojson }}
+            active: dashboard.dataset.tripActive === "true",
+            state: dashboard.dataset.tripState,
+            stateStartTime: Number(dashboard.dataset.stateStartTime),
+            stoppedTime: Number(dashboard.dataset.stoppedTime),
+            movingTime: Number(dashboard.dataset.movingTime),
+            stoppedRate: Number(dashboard.dataset.stoppedRate),
+            movingRate: Number(dashboard.dataset.movingRate)
         };
 
         function updateMeterDisplay() {
-            let stoppedTime = Number(tripData.stoppedTime) || 0;
-            let movingTime = Number(tripData.movingTime) || 0;
+            let stoppedTime = tripData.stoppedTime || 0;
+            let movingTime = tripData.movingTime || 0;
 
             if (tripData.active) {
-                const elapsed = Date.now() / 1000 - Number(tripData.stateStartTime);
+                const elapsed = Date.now() / 1000 - tripData.stateStartTime;
 
                 if (tripData.state === "stopped") {
                     stoppedTime += elapsed;
@@ -177,7 +187,7 @@
                 }
             }
 
-            const totalFare = stoppedTime * Number(tripData.stoppedRate) + movingTime * Number(tripData.movingRate);
+            const totalFare = stoppedTime * tripData.stoppedRate + movingTime * tripData.movingRate;
 
             document.getElementById("stopped-time-display").textContent = `${stoppedTime.toFixed(1)}s`;
             document.getElementById("moving-time-display").textContent = `${movingTime.toFixed(1)}s`;
