@@ -1,130 +1,138 @@
-﻿# Proyecto 1 - Taximetro Digital
+# Proyecto 1 - Taximetro Digital F5
 
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB)
-![Estado](https://img.shields.io/badge/Estado-Nivel%20experto%20en%20desarrollo-8250df)
+![Estado](https://img.shields.io/badge/Estado-Entrega%20tecnica%20completada-2ea44f)
 ![Tests](https://img.shields.io/badge/Tests-14%20passed-2ea44f)
+![CLI](https://img.shields.io/badge/CLI-Funcional-0969da)
 ![GUI](https://img.shields.io/badge/GUI-CustomTkinter-0969da)
-![SQLite](https://img.shields.io/badge/DB-SQLite-003B57)
-![Docker](https://img.shields.io/badge/Docker-CLI-2496ED)
+![Web](https://img.shields.io/badge/Web-Flask-8250df)
+![DB](https://img.shields.io/badge/DB-SQLite-003B57)
+![Docker](https://img.shields.io/badge/Docker-CLI%20%2B%20Web-2496ED)
 ![Gestion](https://img.shields.io/badge/Gestion-Jira-0052CC)
 
 Aplicacion desarrollada en Python para simular un taximetro digital. El sistema calcula el importe de un trayecto a partir del tiempo que el taxi permanece parado y del tiempo que esta en movimiento.
 
-El proyecto forma parte del bootcamp de Factoria F5 y se ha desarrollado de forma incremental, utilizando entorno virtual, Git, ramas de trabajo, Pull Requests, tests unitarios, documentacion tecnica, Jira, SQLite, Docker y una interfaz grafica de escritorio.
+El proyecto se ha desarrollado como MVP academico dentro del bootcamp de Factoria F5, aplicando control de versiones con Git y GitHub, entorno virtual, ramas de trabajo, Pull Requests, tests unitarios, documentacion, tablero Kanban, SQLite, Docker, prototipado UX/UI en Figma, interfaz grafica de escritorio y version web con Flask.
 
-## Estado Del Proyecto
+## Indice
 
-El proyecto cubre actualmente los niveles esencial, medio y avanzado del briefing. El nivel experto esta en desarrollo: la base de datos SQLite esta integrada y la aplicacion CLI esta dockerizada. La version web queda pendiente como siguiente bloque.
+- [Estado del proyecto](#estado-del-proyecto)
+- [Entregables](#entregables)
+- [Tecnologias utilizadas](#tecnologias-utilizadas)
+- [Funcionalidades](#funcionalidades)
+- [Seguimiento del briefing](#seguimiento-del-briefing)
+- [Instalacion local](#instalacion-local)
+- [Ejecucion](#ejecucion)
+- [Docker](#docker)
+- [Base de datos](#base-de-datos)
+- [Arquitectura y estructura](#arquitectura-y-estructura)
+- [Testing y validacion](#testing-y-validacion)
+- [Gestion del proyecto](#gestion-del-proyecto)
+- [Mejoras futuras](#mejoras-futuras)
 
-| Nivel | Estado | Resultado |
+## Estado del proyecto
+
+| Area | Estado | Resultado |
 | --- | --- | --- |
-| Esencial | ![Completado](https://img.shields.io/badge/Completado-2ea44f) | CLI funcional para gestionar trayectos. |
-| Medio | ![Completado](https://img.shields.io/badge/Completado-d29922) | Logs, tests, historico y tarifas configurables. |
-| Avanzado | ![Completado](https://img.shields.io/badge/Completado-0969da) | OOP, autenticacion y GUI de escritorio. |
-| Experto | ![En desarrollo](https://img.shields.io/badge/En%20desarrollo-8250df) | SQLite y Docker CLI completados. Version web pendiente. |
+| Nivel esencial | Completado | CLI funcional para gestionar trayectos. |
+| Nivel medio | Completado | Logs, tests, historico y tarifas configurables. |
+| Nivel avanzado | Completado | OOP, autenticacion y GUI de escritorio. |
+| Nivel experto | Completado | SQLite, Docker y version web con Flask. |
+| UX/UI | Completado | Prototipo web en Figma con flujo de usuario y criterios visuales. |
+| Documentacion | En cierre | README y diario preparados para entrega. |
 
-## Seguimiento Del Briefing
+## Entregables
 
-### ![Nivel Esencial](https://img.shields.io/badge/Nivel%20Esencial-Completado-2ea44f)
-
-| Check | Requisito | Estado |
+| Entregable | Estado | Enlace o ubicacion |
 | --- | --- | --- |
-| OK | Desarrollar un programa CLI en Python. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
-| OK | Mostrar bienvenida y explicar el funcionamiento al iniciar. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
-| OK | Iniciar un trayecto. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
-| OK | Calcular tarifa con el taxi parado. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
-| OK | Calcular tarifa con el taxi en movimiento. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
-| OK | Finalizar un trayecto y mostrar el total en euros. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
-| OK | Permitir iniciar un nuevo trayecto sin cerrar el programa. | ![Completado](https://img.shields.io/badge/Completado-2ea44f) |
+| Repositorio GitHub con codigo fuente | Completado | https://github.com/Bootcamp-IA-MAD-P7/proyecto1_miguel-redondo |
+| Tablero Kanban Jira | Completado | https://miguel-redondo.atlassian.net/jira/core/projects/TAXI/board?filter=&groupBy=status |
+| Prototipo UX/UI Figma | Completado | https://www.figma.com/design/hfzWUpKkCrJsnI5ToBfTcq/Tax%C3%ADmetro-Digital-F5---Prototipo-Web?m=auto&t=TDCuPRO36jeoOvQw-6 |
+| Demostracion CLI | Preparada | Ejecutable con `python taximetro.py` |
+| Demostracion GUI | Preparada | Ejecutable con `python gui.py` |
+| Demostracion Web | Preparada | Ejecutable con `python app.py` o Docker web |
+| Presentacion para publico no tecnico | Pendiente de enlazar | [pendiente] |
+| Presentacion tecnica del codigo | Pendiente de enlazar | [pendiente] |
+| Guion personal de defensa de 5 minutos | Pendiente de preparar | Documento auxiliar de exposicion |
 
-### ![Nivel Medio](https://img.shields.io/badge/Nivel%20Medio-Completado-d29922)
+## Tecnologias utilizadas
 
-| Check | Requisito | Estado |
-| --- | --- | --- |
-| OK | Implementar logs para trazabilidad. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
-| OK | Agregar tests unitarios. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
-| OK | Crear un registro historico de trayectos en texto plano. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
-| OK | Permitir la configuracion de precios para adaptarse a la demanda. | ![Completado](https://img.shields.io/badge/Completado-d29922) |
+| Tecnologia / herramienta | Uso en el proyecto |
+| --- | --- |
+| Python 3.11 | Lenguaje principal. |
+| Flask | Version web accesible desde navegador. |
+| CustomTkinter | Interfaz grafica de escritorio. |
+| SQLite | Persistencia estructurada de trayectos. |
+| Pytest | Tests unitarios. |
+| Logging | Trazabilidad tecnica. |
+| JSON | Configuracion de tarifas y contrasena. |
+| Docker | Contenedores para CLI y web. |
+| Git | Control de versiones local. |
+| GitHub | Repositorio remoto, ramas y Pull Requests. |
+| Jira | Gestion del proyecto mediante tablero Kanban. |
+| Figma | Prototipado UX/UI, flujo de usuario y apoyo visual. |
+| Entorno virtual `.venv` | Aislamiento de dependencias. |
 
-### ![Nivel Avanzado](https://img.shields.io/badge/Nivel%20Avanzado-Completado-0969da)
-
-| Check | Requisito | Estado |
-| --- | --- | --- |
-| OK | Refactorizar el codigo con programacion orientada a objetos. | ![Completado](https://img.shields.io/badge/Completado-0969da) |
-| OK | Implementar autenticacion con contrasena. | ![Completado](https://img.shields.io/badge/Completado-0969da) |
-| OK | Desarrollar una interfaz grafica de usuario. | ![Completado](https://img.shields.io/badge/Completado-0969da) |
-
-### ![Nivel Experto](https://img.shields.io/badge/Nivel%20Experto-En%20desarrollo-8250df)
-
-| Check | Requisito | Estado |
-| --- | --- | --- |
-| OK | Integrar una base de datos para almacenar trayectos. | ![Completado](https://img.shields.io/badge/SQLite-Completado-2ea44f) |
-| OK | Dockerizar la aplicacion. | ![Completado](https://img.shields.io/badge/Docker%20CLI-Completado-2ea44f) |
-| Pendiente | Desarrollar una version web accesible desde navegador. | ![Pendiente](https://img.shields.io/badge/Pendiente-Web%20Flask-8250df) |
-
-## Funcionalidades Principales
+## Funcionalidades
 
 - Calculo de tarifa por tiempo parado y tiempo en movimiento.
 - CLI interactivo con comandos `start`, `stop`, `move`, `finish` y `exit`.
 - Interfaz grafica de escritorio con CustomTkinter.
+- Version web con Flask.
 - Autenticacion basica por contrasena.
 - Configuracion de tarifas desde `config.json`.
-- Edicion de tarifas desde la GUI antes de iniciar un trayecto.
-- Bloqueo de cambio de tarifas durante un trayecto activo.
-- Logs tecnicos con `logging`.
-- Historico local de trayectos finalizados en texto plano.
-- Persistencia estructurada de trayectos en SQLite.
-- Dockerizacion del CLI para ejecucion en entorno aislado.
+- Edicion de tarifas desde GUI y web antes de iniciar un trayecto.
+- Bloqueo de tarifas durante un trayecto activo.
+- Importe y tiempos actualizados durante el trayecto.
+- Historico local en texto plano.
+- Persistencia en SQLite.
+- Visualizacion web de viajes registrados.
+- Visualizacion web de logs tecnicos recientes.
+- Dockerizacion del CLI.
+- Dockerizacion de la web.
 - Tests unitarios con `pytest`.
-- Clase `Taximeter` para centralizar el estado y la logica del trayecto.
+- Clase `Taximeter` para centralizar la logica del trayecto.
 
-## Tecnologias Y Herramientas
+## Seguimiento del briefing
 
-| Tecnologia | Uso |
+### Nivel esencial
+
+| Requisito | Estado |
 | --- | --- |
-| Python 3.11 | Lenguaje principal del proyecto. |
-| CustomTkinter | Interfaz grafica de escritorio. |
-| SQLite | Base de datos local para almacenar trayectos. |
-| Pytest | Tests unitarios. |
-| Logging | Trazabilidad tecnica. |
-| JSON | Configuracion de tarifas y contrasena. |
-| Docker | Ejecucion del CLI en contenedor. |
-| Git | Control de versiones. |
-| GitHub | Repositorio remoto, ramas y Pull Requests. |
-| Jira | Gestion del proyecto mediante tablero Kanban. |
-| Entorno virtual `.venv` | Aislamiento de dependencias en local. |
+| Programa CLI en Python. | Completado |
+| Bienvenida y explicacion al iniciar. | Completado |
+| Iniciar trayecto. | Completado |
+| Calcular tarifa con taxi parado. | Completado |
+| Calcular tarifa con taxi en movimiento. | Completado |
+| Finalizar trayecto y mostrar total. | Completado |
+| Iniciar nuevo trayecto sin cerrar el programa. | Completado |
 
-## Estructura Del Proyecto
+### Nivel medio
 
-```text
-.
-|-- .dockerignore
-|-- .gitignore
-|-- config.json
-|-- database.py
-|-- Dockerfile
-|-- gui.py
-|-- README.md
-|-- requirements.txt
-|-- taximetro.py
-|-- docs/
-|   `-- diario-desarrollo.md
-`-- tests/
-    `-- test_taximetro.py
-```
-
-Archivos generados localmente y no versionados:
-
-| Archivo | Uso |
+| Requisito | Estado |
 | --- | --- |
-| `taximetro.log` | Logs tecnicos de la aplicacion. |
-| `trip_history.txt` | Historico de trayectos finalizados en texto plano. |
-| `taximetro.db` | Base de datos SQLite local. |
-| `.venv/` | Entorno virtual local. |
-| `.pytest_cache/` | Cache local de pytest. |
-| `__pycache__/` | Cache local de Python. |
+| Sistema de logs. | Completado |
+| Tests unitarios. | Completado |
+| Registro historico en texto plano. | Completado |
+| Configuracion de precios. | Completado |
 
-## Instalacion Local Desde Cero
+### Nivel avanzado
+
+| Requisito | Estado |
+| --- | --- |
+| Refactorizacion con OOP. | Completado |
+| Autenticacion con contrasena. | Completado |
+| Interfaz grafica de usuario. | Completado |
+
+### Nivel experto
+
+| Requisito | Estado |
+| --- | --- |
+| Base de datos para trayectos. | Completado |
+| Dockerizacion. | Completado |
+| Version web accesible desde navegador. | Completado |
+
+## Instalacion local
 
 Clonar el repositorio:
 
@@ -133,13 +141,13 @@ git clone https://github.com/Bootcamp-IA-MAD-P7/proyecto1_miguel-redondo.git
 cd proyecto1_miguel-redondo
 ```
 
-Crear el entorno virtual:
+Crear entorno virtual:
 
 ```bash
 python -m venv .venv
 ```
 
-Activar el entorno virtual en Git Bash:
+Activar entorno virtual en Git Bash:
 
 ```bash
 source .venv/Scripts/activate
@@ -151,7 +159,7 @@ Instalar dependencias:
 python -m pip install -r requirements.txt
 ```
 
-Comprobar la instalacion:
+Comprobar instalacion:
 
 ```bash
 python --version
@@ -166,7 +174,7 @@ Resultado esperado:
 
 ## Configuracion
 
-El archivo `config.json` centraliza valores configurables:
+El archivo `config.json` centraliza tarifas y contrasena:
 
 ```json
 {
@@ -182,49 +190,11 @@ El archivo `config.json` centraliza valores configurables:
 | `moving_rate` | Tarifa por segundo cuando el taxi esta en movimiento. |
 | `password` | Contrasena basica de acceso. |
 
-Tarifas por defecto:
+Nota: la contrasena se guarda en texto plano porque se trata de un MVP academico. Como mejora futura se plantea un sistema de usuarios con credenciales protegidas.
 
-- Taxi parado: `0.02` euros/segundo.
-- Taxi en movimiento: `0.05` euros/segundo.
+## Ejecucion
 
-La GUI permite modificar las tarifas antes de iniciar un trayecto. Si no se modifican, se usan las tarifas definidas en `config.json`.
-
-Nota tecnica: la contrasena se guarda en texto plano porque se trata de una autenticacion basica para un MVP academico. Como mejora futura se plantea crear un sistema de gestion de usuarios.
-
-## Ejecucion Local
-
-El proyecto puede ejecutarse localmente de dos formas: interfaz grafica de escritorio o linea de comandos.
-
-### Interfaz Grafica
-
-```bash
-python gui.py
-```
-
-Flujo de uso:
-
-1. Introducir la contrasena.
-2. Revisar las tarifas cargadas.
-3. Modificar tarifas si es necesario.
-4. Pulsar `Aplicar tarifas`.
-5. Pulsar `Iniciar`.
-6. Cambiar entre `Parado` y `Movimiento`.
-7. Pulsar `Finalizar`.
-8. Revisar el importe final y el resumen del ultimo trayecto.
-
-Comportamiento de la GUI:
-
-- Al iniciar un trayecto, el taxi empieza en estado parado.
-- La luz de estado aparece en gris cuando no hay trayecto activo.
-- La luz cambia a ambar cuando el taxi esta parado.
-- La luz parpadea en verde cuando el taxi esta en movimiento.
-- La luz queda en verde fijo al finalizar.
-- El importe se actualiza en tiempo real.
-- El total final se muestra destacado.
-- El trayecto finalizado se guarda en texto plano y en SQLite.
-- Las acciones principales se registran en `taximetro.log`.
-
-### Linea De Comandos
+### CLI
 
 ```bash
 python taximetro.py
@@ -232,101 +202,209 @@ python taximetro.py
 
 Comandos disponibles:
 
-| Comando | Descripcion | Requiere trayecto activo |
-| --- | --- | --- |
-| `start` | Inicia un trayecto. | No |
-| `stop` | Cambia el estado del taxi a parado. | Si |
-| `move` | Cambia el estado del taxi a movimiento. | Si |
-| `finish` | Finaliza el trayecto y muestra el importe total. | Si |
-| `exit` | Cierra el programa. | No |
+| Comando | Descripcion |
+| --- | --- |
+| `start` | Inicia un trayecto. |
+| `stop` | Cambia el estado a parado. |
+| `move` | Cambia el estado a movimiento. |
+| `finish` | Finaliza el trayecto y muestra el total. |
+| `exit` | Cierra el programa. |
 
-Ejemplo de uso:
-
-```text
-Introduce la contrasena: admin123
-Acceso concedido.
-
-Bienvenido al Taximetro Digital F5
-Tarifas: parado = 0.02 euros/segundo | movimiento = 0.05 euros/segundo
-
-> start
-Trayecto iniciado. Estado inicial: parado.
-> move
-Estado actualizado: en movimiento.
-> stop
-Estado actualizado: parado.
-> finish
-
---- Resumen del trayecto ---
-Tiempo parado: 5.4 segundos
-Tiempo en movimiento: 8.2 segundos
-Importe total: 0.52 euros
-----------------------------
-
-> exit
-Saliendo del programa. Hasta pronto.
-```
-
-## Persistencia De Datos
-
-La aplicacion guarda informacion en tres formatos locales:
-
-| Archivo | Tipo | Descripcion |
-| --- | --- | --- |
-| `taximetro.log` | Log tecnico | Registra eventos relevantes, errores de uso y acciones principales. |
-| `trip_history.txt` | Texto plano | Historico simple de trayectos finalizados. |
-| `taximetro.db` | SQLite | Base de datos estructurada con los trayectos finalizados. |
-
-La tabla principal de SQLite es `trips` y almacena:
-
-- Fecha y hora de finalizacion.
-- Tiempo parado.
-- Tiempo en movimiento.
-- Tarifa aplicada para tiempo parado.
-- Tarifa aplicada para tiempo en movimiento.
-- Importe total.
-
-Estos archivos se generan localmente y estan excluidos del repositorio mediante `.gitignore`.
-
-## Calculo De Tarifa
-
-La tarifa se calcula mediante la funcion `calculate_fare`:
-
-```text
-importe = segundos_parado * tarifa_parado + segundos_movimiento * tarifa_movimiento
-```
-
-Ejemplo:
-
-```text
-10 segundos parado * 0.02 = 0.20 euros
-5 segundos en movimiento * 0.05 = 0.25 euros
-total = 0.45 euros
-```
-
-El tiempo se mide en tiempo real, por lo que pueden aparecer decimales en los segundos registrados. El importe se muestra redondeado a dos decimales.
-
-## Tests
-
-Ejecutar la suite de tests:
+### GUI de escritorio
 
 ```bash
-python -m pytest
+python gui.py
 ```
 
-Actualmente se validan:
+Flujo principal:
 
-- Calculo de tarifa con tarifas por defecto.
-- Calculo de tarifa con tarifas configurables.
-- Carga de contrasena desde configuracion.
-- Estado inicial de la clase `Taximeter`.
-- Inicio de trayecto.
-- Prevencion de trayectos duplicados.
-- Rechazo de estados invalidos.
-- Finalizacion sin trayecto activo.
-- Resumen devuelto al finalizar un trayecto.
-- Creacion de la tabla SQLite `trips`.
-- Insercion y lectura de trayectos en SQLite.
+1. Introducir contrasena.
+2. Revisar o modificar tarifas.
+3. Iniciar trayecto.
+4. Cambiar entre parado y movimiento.
+5. Finalizar trayecto.
+6. Revisar importe final.
+
+### Version web
+
+```bash
+python app.py
+```
+
+Acceso:
+
+```text
+http://localhost:5000
+```
+
+La web permite login, gestion del trayecto, contador en pantalla, cambio de tarifas antes de iniciar, consulta de viajes en SQLite y revision de logs tecnicos recientes.
+
+## Docker
+
+El proyecto incluye dos estrategias de contenedor:
+
+| Archivo | Uso |
+| --- | --- |
+| `Dockerfile` | Ejecuta el CLI. |
+| `Dockerfile.web` | Ejecuta la version web con Flask. |
+
+### Docker CLI
+
+Construir imagen:
+
+```bash
+docker build -t taximetro-cli .
+```
+
+Ejecutar CLI:
+
+```bash
+docker run --rm -it taximetro-cli
+```
+
+En Git Bash puede ser necesario usar:
+
+```bash
+winpty docker run --rm -it taximetro-cli
+```
+
+Ejecutar con persistencia:
+
+```bash
+docker run --rm -it -v taximetro_data:/app/data taximetro-cli
+```
+
+### Docker Web
+
+Construir imagen:
+
+```bash
+docker build -f Dockerfile.web -t taximetro-web .
+```
+
+Ejecutar web:
+
+```bash
+docker run --rm -p 5000:5000 taximetro-web
+```
+
+Ejecutar web con persistencia:
+
+```bash
+docker run --rm -p 5000:5000 -v taximetro_web_data:/app/data taximetro-web
+```
+
+Acceso:
+
+```text
+http://localhost:5000
+```
+
+El uso de volumenes permite conservar `taximetro.db`, `taximetro.log` y `trip_history.txt` entre ejecuciones del contenedor.
+
+## Base de datos
+
+La aplicacion utiliza SQLite para almacenar trayectos finalizados. SQLite es suficiente para este MVP porque permite persistencia local sin servidor externo.
+
+La tabla principal es `trips`.
+
+| Campo | Tipo | Descripcion |
+| --- | --- | --- |
+| `id` | INTEGER | Identificador unico del trayecto. |
+| `finished_at` | TEXT | Fecha y hora de finalizacion. |
+| `stopped_time` | REAL | Tiempo total con el taxi parado. |
+| `moving_time` | REAL | Tiempo total con el taxi en movimiento. |
+| `stopped_rate` | REAL | Tarifa aplicada al tiempo parado. |
+| `moving_rate` | REAL | Tarifa aplicada al tiempo en movimiento. |
+| `total_fare` | REAL | Importe total del trayecto. |
+
+### Criterio de normalizacion para el MVP
+
+- Cada fila representa un trayecto finalizado.
+- Cada campo almacena un dato atomico.
+- `id` actua como clave primaria.
+- Las tarifas se guardan dentro del viaje para conservar el precio historico aplicado.
+- No se separan usuarios, tarifas o auditorias en tablas independientes porque no forman parte del alcance minimo actual.
+
+Evolucion futura posible:
+
+- Tabla `users`.
+- Tabla `rates`.
+- Tabla `audit_logs`.
+- Relacion entre viajes y usuario autenticado.
+
+### Como consultar SQLite
+
+Desde Python:
+
+```bash
+python -c "import sqlite3; conn=sqlite3.connect('taximetro.db'); print(conn.execute('SELECT id, finished_at, total_fare FROM trips ORDER BY id DESC LIMIT 5').fetchall()); conn.close()"
+```
+
+Tambien puede revisarse con DB Browser for SQLite o extensiones de SQLite para VSCode.
+
+## Arquitectura y estructura
+
+```text
+.
+|-- .dockerignore
+|-- .gitignore
+|-- Dockerfile
+|-- Dockerfile.web
+|-- README.md
+|-- app.py
+|-- config.json
+|-- database.py
+|-- gui.py
+|-- requirements.txt
+|-- taximetro.py
+|-- docs/
+|   `-- diario-desarrollo.md
+|-- static/
+|   `-- css/
+|       `-- styles.css
+|-- templates/
+|   |-- dashboard.html
+|   `-- login.html
+`-- tests/
+    `-- test_taximetro.py
+```
+
+Responsabilidades principales:
+
+| Archivo | Responsabilidad |
+| --- | --- |
+| `taximetro.py` | Logica principal, CLI, clase `Taximeter`, tarifas, autenticacion e historico. |
+| `database.py` | Creacion y consulta de SQLite. |
+| `gui.py` | Interfaz grafica de escritorio. |
+| `app.py` | Aplicacion web Flask. |
+| `templates/` | Vistas HTML de la web. |
+| `static/css/styles.css` | Estilos de la web. |
+| `tests/test_taximetro.py` | Tests unitarios. |
+
+Archivos generados localmente y no versionados:
+
+| Archivo | Uso |
+| --- | --- |
+| `taximetro.log` | Logs tecnicos. |
+| `trip_history.txt` | Historico en texto plano. |
+| `taximetro.db` | Base de datos SQLite. |
+| `.venv/` | Entorno virtual. |
+| `.pytest_cache/` | Cache de pytest. |
+| `__pycache__/` | Cache de Python. |
+
+## Testing y validacion
+
+Comandos de validacion habituales:
+
+```bash
+python -m py_compile taximetro.py
+python -m py_compile database.py
+python -m py_compile gui.py
+python -m py_compile app.py
+python -m pytest
+git diff --check
+```
 
 Resultado actual:
 
@@ -334,87 +412,22 @@ Resultado actual:
 14 tests pasados
 ```
 
-## Docker
+Se validan calculos de tarifa, configuracion, autenticacion, estados de la clase `Taximeter`, finalizacion de trayectos, persistencia SQLite y lectura de registros.
 
-La dockerizacion se ha planteado de forma practica para el MVP:
+## Gestion del proyecto
 
-- La aplicacion CLI se ejecuta dentro de Docker.
-- La GUI de escritorio se mantiene como ejecucion local, porque las interfaces graficas en contenedores Docker sobre Windows anaden complejidad innecesaria para este proyecto.
-- La futura version web tendra su propia estrategia de contenedor, mas natural para Flask y despliegue en navegador.
+El trabajo se ha gestionado con Jira y GitHub.
 
-### Construir La Imagen
+Flujo aplicado:
 
-Desde la raiz del proyecto:
+1. `main` como rama estable.
+2. Rama por funcionalidad o bloque de documentacion.
+3. Commits descriptivos con Conventional Commits.
+4. Pull Request hacia `main`.
+5. Validacion antes de fusionar.
+6. Actualizacion local de `main` tras cada merge.
 
-```bash
-docker build -t taximetro-cli .
-```
-
-### Ejecutar El CLI En Docker
-
-En PowerShell:
-
-```powershell
-docker run --rm -it taximetro-cli
-```
-
-En Git Bash para Windows puede ser necesario usar `winpty` para que el programa reciba entrada por teclado:
-
-```bash
-winpty docker run --rm -it taximetro-cli
-```
-
-Nota: no se recomienda iniciar esta imagen desde el boton `Run` de Docker Desktop, porque la aplicacion CLI necesita una terminal interactiva conectada a `input()`.
-
-### Ejecutar Con Persistencia De Datos
-
-Para conservar `taximetro.db`, `taximetro.log` y `trip_history.txt` fuera del ciclo de vida del contenedor, se puede montar un volumen en `/app/data`.
-
-Comando recomendado en PowerShell:
-
-```powershell
-docker run --rm -it -v taximetro_data:/app/data taximetro-cli
-```
-
-Comprobar que el volumen existe:
-
-```powershell
-docker volume ls
-```
-
-Consultar los ultimos trayectos guardados en SQLite dentro del volumen:
-
-```powershell
-docker run --rm -v taximetro_data:/app/data taximetro-cli python -c "import sqlite3; conn=sqlite3.connect('/app/data/taximetro.db'); print(conn.execute('SELECT id, finished_at, total_fare FROM trips ORDER BY id DESC LIMIT 3').fetchall()); conn.close()"
-```
-
-En Git Bash, los volumenes con rutas Linux como `/app/data` pueden sufrir conversion automatica de rutas. Por ese motivo, para pruebas con volumen en Windows se recomienda PowerShell.
-
-### Separacion De Estrategias Docker
-
-| Parte | Estrategia |
-| --- | --- |
-| CLI | Dockerizado con `taximetro-cli`. |
-| GUI escritorio | Ejecucion local con CustomTkinter. |
-| Web futura | Contenedor propio cuando se implemente Flask. |
-
-Esta separacion evita forzar la GUI dentro de Docker y permite que la futura aplicacion web se despliegue con un enfoque mas adecuado.
-
-## Flujo De Trabajo Con Git
-
-El proyecto se ha desarrollado siguiendo un flujo basado en ramas:
-
-1. Mantener `main` como rama estable.
-2. Crear una rama para cada funcionalidad.
-3. Trabajar en cambios pequenos y verificables.
-4. Ejecutar validaciones antes de confirmar cambios.
-5. Crear commits descriptivos siguiendo Conventional Commits.
-6. Subir la rama a GitHub.
-7. Abrir Pull Request.
-8. Fusionar en `main`.
-9. Actualizar `main` local con `git pull`.
-
-Ramas utilizadas:
+Ramas principales utilizadas:
 
 - `feature/nivel-esencial`
 - `feature/logs`
@@ -426,49 +439,46 @@ Ramas utilizadas:
 - `feature/gui-customtkinter`
 - `feature/sqlite-database`
 - `feature/docker-CLI`
+- `feature/flask-web`
+- `feature/docker-web`
 - `docs/estilo-profesional`
 - `docs/readme-guia-uso`
 
-Comprobaciones habituales:
+## UX/UI
 
-```bash
-git status
-python -m py_compile database.py
-python -m py_compile taximetro.py
-python -m py_compile gui.py
-python -m pytest
-git diff --check
+La version web se prototipo en Figma antes de implementarse. El objetivo visual fue crear una interfaz oscura, sobria y moderna, con una inspiracion ligera en taximetros clasicos.
+
+El prototipo incluye:
+
+- Dashboard principal.
+- Pantallas web.
+- Componentes base.
+- Flujo de usuario.
+- Diagramas de apoyo.
+- Persona y casos de uso.
+
+Enlace al prototipo:
+
+```text
+https://www.figma.com/design/hfzWUpKkCrJsnI5ToBfTcq/Tax%C3%ADmetro-Digital-F5---Prototipo-Web?m=auto&t=TDCuPRO36jeoOvQw-6
 ```
 
-## Gestion Del Proyecto
+## Enfoque MVP
 
-El seguimiento del trabajo se realiza mediante un tablero Kanban en Jira:
+El proyecto se ha planteado como una evolucion incremental:
 
-[Ver tablero Jira](https://miguel-redondo.atlassian.net/jira/core/projects/TAXI/board?filter=&groupBy=status)
+```text
+CLI minimo -> logs y tests -> OOP -> GUI -> SQLite -> Docker -> Web Flask
+```
 
-Estado actual:
+La idea inicial era resolver primero el problema esencial: calcular una tarifa. A partir de ahi se han anadido capas de calidad, persistencia, usabilidad y despliegue.
 
-- Nivel esencial completado.
-- Nivel medio completado.
-- Nivel avanzado completado.
-- Nivel experto en desarrollo.
-- SQLite completado.
-- Docker CLI completado.
-- Version web pendiente.
+## Mejoras futuras
 
-## Documentacion Del Proceso
-
-El registro de decisiones, avances, problemas y validaciones se mantiene en:
-
-[docs/diario-desarrollo.md](docs/diario-desarrollo.md)
-
-## Roadmap
-
-Proximos pasos previstos:
-
-- Disenar en Figma la experiencia de la version web.
-- Desarrollar una version web accesible desde navegador con Flask.
-- Preparar documentacion final de despliegue web.
-- Preparar presentacion tecnica del codigo.
-- Preparar presentacion para publico no tecnico.
-- Valorar un sistema de gestion de usuarios para sustituir la contrasena unica del MVP.
+- Gestion real de usuarios.
+- Hash de contrasenas.
+- Separacion de tarifas en tabla propia.
+- API REST para consultar trayectos.
+- Tests especificos para Flask.
+- Despliegue en plataforma cloud.
+- Panel administrativo para consultar historico y logs con filtros.
