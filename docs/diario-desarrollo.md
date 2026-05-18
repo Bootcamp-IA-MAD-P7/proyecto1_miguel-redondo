@@ -549,3 +549,184 @@ Trabajo realizado:
 - Reutilizar la logica existente del taximetro.
 - Mostrar historico desde SQLite.
 - Preparar las presentaciones tecnica y no tecnica.
+## Dia 5 - 17 de mayo de 2026
+
+### Objetivos
+
+- Disenar la experiencia de la version web.
+- Preparar una propuesta visual coherente con el producto.
+- Implementar la aplicacion web con Flask.
+- Conectar la web con la logica existente del taximetro.
+
+### UX/UI En Figma
+
+Trabajo realizado:
+
+- Se creo un prototipo UX/UI en Figma para la version web.
+- Se descarto una primera aproximacion demasiado similar a la GUI de escritorio.
+- Se eligio un enfoque visual oscuro, sobrio y moderno, con inspiracion ligera en taximetros clasicos.
+- Se definieron pantallas principales, componentes, flujo de usuario, diagramas de apoyo, persona y casos de uso.
+- Se uso Figma como apoyo de diseno, no como requisito de ejecucion tecnica.
+
+Enlace del prototipo:
+
+```text
+https://www.figma.com/design/hfzWUpKkCrJsnI5ToBfTcq/Tax%C3%ADmetro-Digital-F5---Prototipo-Web?m=auto&t=TDCuPRO36jeoOvQw-6
+```
+
+Decision:
+
+- Mantener Figma como entregable de UX/UI y referencia visual para la web.
+- No seguir iterando en Figma una vez validado el look general para ahorrar tiempo y centrar el cierre en funcionalidad, documentacion y entrega.
+
+### Version Web Con Flask
+
+Trabajo realizado:
+
+- Se creo la rama `feature/flask-web`.
+- Se instalo Flask y se actualizo `requirements.txt`.
+- Se creo `app.py`.
+- Se crearon las plantillas `login.html` y `dashboard.html`.
+- Se creo `static/css/styles.css`.
+- Se implemento login web usando la contrasena de `config.json`.
+- Se creo un dashboard para iniciar, cambiar estado, finalizar y reiniciar trayectos.
+- Se conecto la version web con SQLite para mostrar viajes registrados.
+- Se anadio visualizacion de logs tecnicos recientes.
+- Se permitio modificar tarifas antes de iniciar un trayecto.
+- Se bloqueo la modificacion de tarifas durante trayecto activo.
+- Se anadio indicador visual de estado: libre, ocupado, taxi parado, en movimiento y finalizado.
+- Se corrigio el contador para actualizar tiempos e importe con JavaScript, sin recargar la pagina.
+
+Validaciones realizadas:
+
+```bash
+python -m py_compile app.py
+python -m pytest
+git diff --check
+python app.py
+```
+
+Resultado:
+
+```text
+14 tests pasados
+```
+
+Pruebas manuales:
+
+- Login correcto.
+- Inicio de trayecto.
+- Cambio a movimiento.
+- Cambio a parado.
+- Finalizacion del trayecto.
+- Reinicio con nuevo viaje.
+- Visualizacion de viajes en SQLite.
+- Visualizacion de logs recientes.
+- Cambio de tarifas antes de iniciar.
+
+### Estado Al Cierre
+
+- Prototipo Figma completado.
+- Version web Flask completada.
+- La web queda conectada con SQLite, logs y configuracion.
+- Queda pendiente dockerizar la web y cerrar documentacion final.
+
+## Dia 6 - 18 de mayo de 2026
+
+### Objetivos
+
+- Dockerizar la version web.
+- Validar persistencia de datos en Docker.
+- Revisar el estado final del proyecto frente al briefing.
+- Preparar documentacion de cierre para la entrega.
+
+### Docker Web
+
+Trabajo realizado:
+
+- Se creo la rama `feature/docker-web`.
+- Se creo `Dockerfile.web` para la aplicacion Flask.
+- Se configuro Flask para escuchar en `0.0.0.0` dentro del contenedor.
+- Se expuso el puerto `5000`.
+- Se construyo la imagen `taximetro-web`.
+- Se ejecuto la web dentro del contenedor.
+- Se valido el acceso desde `http://localhost:5000`.
+- Se probo persistencia con el volumen `taximetro_web_data`.
+
+Validaciones realizadas:
+
+```bash
+python -m py_compile app.py
+python -m pytest
+git diff --check
+docker build -f Dockerfile.web -t taximetro-web .
+docker run --rm -p 5000:5000 -v taximetro_web_data:/app/data taximetro-web
+```
+
+Resultado:
+
+```text
+14 tests pasados
+```
+
+Prueba manual de persistencia:
+
+- Se arranco el contenedor con volumen.
+- Se registro un trayecto desde la web.
+- Se detuvo el contenedor.
+- Se arranco de nuevo con el mismo volumen.
+- Se comprobo que el viaje seguia apareciendo en la tabla.
+
+### Revision Tecnica
+
+Puntos revisados:
+
+- CLI funcional.
+- GUI funcional.
+- Web funcional.
+- SQLite integrada.
+- Logs generados correctamente.
+- Historico en texto plano generado correctamente.
+- Docker CLI validado.
+- Docker web validado.
+- Persistencia con volumen validada.
+- `.gitignore` protege `.venv`, caches, logs, base de datos e historico generado.
+- Tests unitarios pasando.
+
+Comandos de revision:
+
+```bash
+git status
+python -m pytest
+python -m py_compile taximetro.py
+python -m py_compile database.py
+python -m py_compile app.py
+python -m py_compile gui.py
+git diff --check
+git status --ignored
+```
+
+Conclusiones:
+
+- El nivel esencial queda completado.
+- El nivel medio queda completado.
+- El nivel avanzado queda completado.
+- El nivel experto queda completado.
+- El proyecto queda tecnicamente preparado para entrega.
+- Quedan pendientes las presentaciones y el guion personal de defensa.
+
+### Cierre De Documentacion
+
+Trabajo realizado:
+
+- Se reviso el README para convertirlo en documento principal de entrega.
+- Se anadieron entregables, tecnologias, instalacion, ejecucion, Docker, base de datos, arquitectura, UX/UI y mejoras futuras.
+- Se dejaron huecos para enlazar las presentaciones cuando esten preparadas.
+- Se actualizo el diario con Figma, Flask, Docker web y revision tecnica final.
+
+### Siguiente Paso
+
+- Preparar presentacion para publico no tecnico.
+- Preparar presentacion tecnica.
+- Preparar guion personal de defensa de 5 minutos.
+- Realizar revision final del repositorio y entregar.
