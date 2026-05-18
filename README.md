@@ -51,9 +51,8 @@ El proyecto se ha desarrollado como MVP academico dentro del bootcamp de Factori
 | Demostracion CLI | Preparada | Ejecutable con `python taximetro.py` |
 | Demostracion GUI | Preparada | Ejecutable con `python gui.py` |
 | Demostracion Web | Preparada | Ejecutable con `python app.py` o Docker web |
-| Presentacion para publico no tecnico | Pendiente de enlazar | [pendiente] |
+| Presentacion para publico no tecnico | https://canva.link/0mt9py82inlurfb |
 | Presentacion tecnica del codigo | Pendiente de enlazar | [pendiente] |
-| Guion personal de defensa de 5 minutos | Pendiente de preparar | Documento auxiliar de exposicion |
 
 ## Tecnologias utilizadas
 
